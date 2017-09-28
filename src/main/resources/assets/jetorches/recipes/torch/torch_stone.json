@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "jetorches:torch",
+  "pattern": [ "O", "S" ],
+  "key": {
+    "O": { "item": "minecraft:coal", "data": 32767 },
+    "S": { "ore": "stickStone", "type": "forge:ore_dict" }
+  },
+  "result": { "item": "jetorches:torch", "data": 0, "count": 4 }
+}

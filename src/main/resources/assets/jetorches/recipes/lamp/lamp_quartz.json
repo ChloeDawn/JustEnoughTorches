@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "jetorches:lamp",
+  "pattern": [ " O ", "ORO", " O " ],
+  "key": {
+    "O": { "item": "minecraft:quartz" },
+    "R": { "item": "minecraft:redstone_lamp" }
+  },
+  "result": { "item": "jetorches:lamp", "data": 2 }
+}

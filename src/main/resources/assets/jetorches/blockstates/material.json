@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "stick_nether": { "textures": { "layer0": "jetorches:items/stick_nether" } },
+      "stick_prismarine": { "textures": { "layer0": "jetorches:items/stick_prismarine" } },
+      "stick_stone": { "textures": { "layer0": "jetorches:items/stick_stone" } },
+      "stick_obsidian": { "textures": { "layer0": "jetorches:items/stick_obsidian" } },
+      "stick_golden": { "textures": { "layer0": "jetorches:items/stick_golden" } }
+    }
+  }
+}

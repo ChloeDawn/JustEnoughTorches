@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "powered": {
+      "false": { "textures": { "all": "jetorches:blocks/lamp_quartz_off" } },
+      "true": { "textures": { "all": "jetorches:blocks/lamp_quartz_on" } }
+    }
+  }
+}
