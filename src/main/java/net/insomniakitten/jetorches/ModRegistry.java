@@ -32,8 +32,8 @@ public class ModRegistry {
     public static final List<BlockTorch> BLOCK_TORCHES = new ArrayList<>();
     public static final BlockLamp BLOCK_LAMP = new BlockLamp();
 
-    public static final ItemTorch ITEM_TORCH = new ItemTorch();
     public static final ItemLamp ITEM_LAMP = new ItemLamp(BLOCK_LAMP);
+    public static final ItemTorch ITEM_TORCH = new ItemTorch();
     public static final ItemMaterial ITEM_MATERIAL = new ItemMaterial();
 
     public static final ItemStack ANY_TORCH = new ItemStack(ITEM_TORCH, 1, Short.MAX_VALUE);
@@ -49,13 +49,13 @@ public class ModRegistry {
     protected static void onItemRegistry(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(ITEM_LAMP, ITEM_TORCH, ITEM_MATERIAL);
         OreDictionary.registerOre("torch", ANY_TORCH);
-        for (TorchType torch : TorchType.values()) {
-            ItemStack stack = new ItemStack(ITEM_TORCH, 1, torch.getMetadata());
-            OreDictionary.registerOre(torch.getOreDict(), stack);
-        }
         for (LampType lamp : LampType.values()) {
             ItemStack stack = new ItemStack(ITEM_LAMP, 1, lamp.getMetadata());
             OreDictionary.registerOre(lamp.getOreDict(), stack);
+        }
+        for (TorchType torch : TorchType.values()) {
+            ItemStack stack = new ItemStack(ITEM_TORCH, 1, torch.getMetadata());
+            OreDictionary.registerOre(torch.getOreDict(), stack);
         }
         for (MaterialType material : MaterialType.values()) {
             ItemStack stack = new ItemStack(ITEM_MATERIAL, 1, material.getMetadata());
@@ -67,15 +67,15 @@ public class ModRegistry {
     @SideOnly(Side.CLIENT)
     protected static void onModelRegistry(ModelRegistryEvent event) {
         ModelLoader.setCustomStateMapper(BLOCK_LAMP, new BlockLamp.LampStateMapper());
-        for (TorchType torch : TorchType.values()) {
-            ResourceLocation rl = new ResourceLocation(JETorches.ID, "torch_" + torch.getName());
-            ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
-            ModelLoader.setCustomModelResourceLocation(ITEM_TORCH, torch.getMetadata(), mrl);
-        }
         for (LampType lamp : LampType.values()) {
             ResourceLocation rl = new ResourceLocation(JETorches.ID, "lamp_" + lamp.getName());
             ModelResourceLocation mrl = new ModelResourceLocation(rl, "powered=false");
             ModelLoader.setCustomModelResourceLocation(ITEM_LAMP, lamp.getMetadata(), mrl);
+        }
+        for (TorchType torch : TorchType.values()) {
+            ResourceLocation rl = new ResourceLocation(JETorches.ID, "torch_" + torch.getName());
+            ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
+            ModelLoader.setCustomModelResourceLocation(ITEM_TORCH, torch.getMetadata(), mrl);
         }
         for (MaterialType material : MaterialType.values()) {
             ResourceLocation rl = ITEM_MATERIAL.getRegistryName();
