@@ -28,9 +28,9 @@ public class ItemMaterial extends Item {
 
     @Override
     public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
-        if (this.isInCreativeTab(tab)) {
-            for (int i = 0; i < MaterialType.values().length; ++i) {
-                items.add(new ItemStack(this, 1, i));
+        if (isInCreativeTab(tab)) {
+            for (MaterialType material : MaterialType.values()) {
+                items.add(new ItemStack(this, 1, material.getMetadata()));
             }
         }
     }

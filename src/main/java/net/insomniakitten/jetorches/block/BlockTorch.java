@@ -41,7 +41,7 @@ import java.util.Random;
 
 public class BlockTorch extends Block {
 
-    public static final PropertyDirection FACING = PropertyDirection
+    private static final PropertyDirection FACING = PropertyDirection
             .create("facing", facing -> facing != EnumFacing.DOWN);
 
     private static final ImmutableMap<EnumFacing, AxisAlignedBB> AABB_TORCH = ImmutableMap.of(

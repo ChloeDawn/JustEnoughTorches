@@ -2,7 +2,7 @@ package net.insomniakitten.jetorches;
 
 import net.insomniakitten.jetorches.block.BlockLamp;
 import net.insomniakitten.jetorches.block.BlockTorch;
-import net.insomniakitten.jetorches.item.ItemBlockLamp;
+import net.insomniakitten.jetorches.item.ItemLamp;
 import net.insomniakitten.jetorches.item.ItemMaterial;
 import net.insomniakitten.jetorches.item.ItemTorch;
 import net.insomniakitten.jetorches.type.LampType;
@@ -33,7 +33,7 @@ public class ModRegistry {
     public static final BlockLamp BLOCK_LAMP = new BlockLamp();
 
     public static final ItemTorch ITEM_TORCH = new ItemTorch();
-    public static final ItemBlockLamp ITEM_LAMP = new ItemBlockLamp(BLOCK_LAMP);
+    public static final ItemLamp ITEM_LAMP = new ItemLamp(BLOCK_LAMP);
     public static final ItemMaterial ITEM_MATERIAL = new ItemMaterial();
 
     public static final ItemStack ANY_TORCH = new ItemStack(ITEM_TORCH, 1, Short.MAX_VALUE);
@@ -67,23 +67,20 @@ public class ModRegistry {
     @SideOnly(Side.CLIENT)
     protected static void onModelRegistry(ModelRegistryEvent event) {
         ModelLoader.setCustomStateMapper(BLOCK_LAMP, new BlockLamp.LampStateMapper());
-        for (int i = 0; i < TorchType.values().length; ++i) {
-            String type = TorchType.getType(i).getName();
-            ResourceLocation rl = new ResourceLocation(JETorches.ID, "torch_" + type);
+        for (TorchType torch : TorchType.values()) {
+            ResourceLocation rl = new ResourceLocation(JETorches.ID, "torch_" + torch.getName());
             ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
-            ModelLoader.setCustomModelResourceLocation(ITEM_TORCH, i, mrl);
+            ModelLoader.setCustomModelResourceLocation(ITEM_TORCH, torch.getMetadata(), mrl);
         }
-        for (int i = 0; i < LampType.values().length; ++i) {
-            String type = LampType.getType(i).getName();
-            ResourceLocation rl = new ResourceLocation(JETorches.ID, "lamp_" + type);
+        for (LampType lamp : LampType.values()) {
+            ResourceLocation rl = new ResourceLocation(JETorches.ID, "lamp_" + lamp.getName());
             ModelResourceLocation mrl = new ModelResourceLocation(rl, "powered=false");
-            ModelLoader.setCustomModelResourceLocation(ITEM_LAMP, i, mrl);
+            ModelLoader.setCustomModelResourceLocation(ITEM_LAMP, lamp.getMetadata(), mrl);
         }
-        for (int i = 0; i < MaterialType.values().length; ++i) {
-            String type = MaterialType.get(i).getName();
+        for (MaterialType material : MaterialType.values()) {
             ResourceLocation rl = ITEM_MATERIAL.getRegistryName();
-            ModelResourceLocation mrl = new ModelResourceLocation(rl, "type=" + type);
-            ModelLoader.setCustomModelResourceLocation(ITEM_MATERIAL, i, mrl);
+            ModelResourceLocation mrl = new ModelResourceLocation(rl, "type=" + material.getName());
+            ModelLoader.setCustomModelResourceLocation(ITEM_MATERIAL, material.getMetadata(), mrl);
         }
     }
 

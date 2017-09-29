@@ -16,10 +16,10 @@ public enum MaterialType implements IStringSerializable {
     private final String oreDict;
 
     MaterialType(String oreDict) {
-        this(64, oreDict);
+        this(oreDict, 64);
     }
 
-    MaterialType(int stackSize, String oreDict) {
+    MaterialType(String oreDict, int stackSize) {
         this.stackSize = stackSize;
         this.oreDict = oreDict;
     }

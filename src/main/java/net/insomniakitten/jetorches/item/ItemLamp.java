@@ -7,9 +7,9 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-public class ItemBlockLamp extends ItemBlock {
+public class ItemLamp extends ItemBlock {
 
-    public ItemBlockLamp(Block block) {
+    public ItemLamp(Block block) {
         super(block);
         setRegistryName(block.getRegistryName());
         setHasSubtypes(true);

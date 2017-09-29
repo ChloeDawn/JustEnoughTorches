@@ -41,7 +41,7 @@ public class BlockLamp extends Block {
     @Override
     @Deprecated
     public IBlockState getStateFromMeta(int meta) {
-        boolean powered = (meta & 0b1) != 0;
+        boolean powered = (meta & 1) != 0;
         LampType type = LampType.getType(meta >> 2);
         return getDefaultState().withProperty(POWERED, powered).withProperty(TYPE, type);
     }

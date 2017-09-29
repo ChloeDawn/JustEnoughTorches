@@ -8,11 +8,13 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(modid = JETorches.ID, value = Side.CLIENT)
 public class ModEvents {
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     protected static void onViewRender(EntityViewRenderEvent.FOVModifier event) {
         if ((event.getState().getBlock() instanceof BlockTorch)) {
             BlockTorch torch = (BlockTorch) event.getState().getBlock();
@@ -25,6 +27,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     protected static void onFogRender(EntityViewRenderEvent.FogDensity event) {
         boolean inWater = event.getEntity().isInsideOfMaterial(Material.WATER);
         if (event.getState().getBlock() instanceof BlockTorch && inWater) {
