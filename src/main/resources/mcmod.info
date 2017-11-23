@@ -1,16 +1,10 @@
 [
-  {
-    "modid": "jetorches",
-    "name": "Just Enough Torches",
-    "description": "Adds various torches for various materials.",
-    "version": "${mod_version}",
-    "mcversion": "${mc_version}",
-    "url": "",
-    "updateUrl": "",
-    "authorList": [ "InsomniaKitten" ],
-    "credits": "",
-    "logoFile": "",
-    "screenshots": [ ],
-    "dependencies": [ ]
-  }
+    {
+        "modid": "jetorches",
+        "name": "Just Enough Torches",
+        "description": "Adds various torches for various materials.",
+        "version": "${version}",
+        "mcversion": "[1.12,1.13)",
+        "authorList": [ "InsomniaKitten" ]
+    }
 ]

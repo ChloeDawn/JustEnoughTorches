@@ -1,5 +1,6 @@
 package net.insomniakitten.jetorches.item;
 
+import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.type.LampType;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -7,11 +8,12 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-public class ItemLamp extends ItemBlock {
+public final class ItemLamp extends ItemBlock {
 
     public ItemLamp(Block block) {
         super(block);
-        setRegistryName(block.getRegistryName());
+        setRegistryName(JETorches.ID, "lamp");
+        setUnlocalizedName(JETorches.ID + ".lamp");
         setHasSubtypes(true);
     }
 
@@ -22,8 +24,8 @@ public class ItemLamp extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        String type = LampType.getType(stack.getMetadata()).getName();
-        return getUnlocalizedName() + "_" + type;
+        LampType type = LampType.getType(stack.getMetadata());
+        return getUnlocalizedName() + "_" + type.getName();
     }
 
     @Override

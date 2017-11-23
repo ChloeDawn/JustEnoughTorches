@@ -11,7 +11,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(modid = JETorches.ID, value = Side.CLIENT)
-public class ModEvents {
+public final class JETorchesEvents {
+
+    private JETorchesEvents() {}
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
@@ -20,7 +22,7 @@ public class ModEvents {
             BlockTorch torch = (BlockTorch) event.getState().getBlock();
             boolean isPrismarine = torch.getType().equals(TorchType.PRISMARINE);
             boolean inWater = event.getEntity().isInsideOfMaterial(Material.WATER);
-            if (isPrismarine && ModConfig.prismarineUnderwater && inWater) {
+            if (isPrismarine && JETorchesConfig.prismarineUnderwater && inWater) {
                 event.setFOV(event.getFOV() * 60.0F / 70.0F);
             }
         }

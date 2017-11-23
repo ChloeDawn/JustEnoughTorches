@@ -8,12 +8,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Config(modid = JETorches.ID, name = JETorches.ID)
 @Mod.EventBusSubscriber(modid = JETorches.ID)
-public class ModConfig {
+public final class JETorchesConfig {
 
     @Config.Name("Prismarine Works Underwater")
     @Config.Comment("If true, the prismarine torch will not break when placed in water.")
     @Config.RequiresMcRestart
     public static boolean prismarineUnderwater = true;
+
+    private JETorchesConfig() {}
 
     @SubscribeEvent
     protected static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {

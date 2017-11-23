@@ -7,27 +7,23 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-import javax.annotation.Nonnull;
-
-public class ItemMaterial extends Item {
+public final class ItemMaterial extends Item {
 
     public ItemMaterial() {
-        final String name = "material";
-        setRegistryName(name);
-        setUnlocalizedName(JETorches.ID + "." + name);
+        setRegistryName(JETorches.ID, "material");
+        setUnlocalizedName(JETorches.ID + ".material");
         setCreativeTab(JETorches.CTAB);
         setHasSubtypes(true);
     }
 
     @Override
-    @Nonnull
     public String getUnlocalizedName(ItemStack stack) {
-        String type = MaterialType.get(stack.getMetadata()).getName();
-        return getUnlocalizedName() + "." + type;
+        MaterialType type = MaterialType.get(stack.getMetadata());
+        return JETorches.ID + "." + type.getName();
     }
 
     @Override
-    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (isInCreativeTab(tab)) {
             for (MaterialType material : MaterialType.values()) {
                 items.add(new ItemStack(this, 1, material.getMetadata()));

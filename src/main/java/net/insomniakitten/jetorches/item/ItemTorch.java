@@ -1,7 +1,7 @@
 package net.insomniakitten.jetorches.item;
 
 import net.insomniakitten.jetorches.JETorches;
-import net.insomniakitten.jetorches.ModRegistry;
+import net.insomniakitten.jetorches.JETorchesRegistry;
 import net.insomniakitten.jetorches.type.TorchType;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
@@ -19,28 +19,24 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemTorch extends Item {
+public final class ItemTorch extends Item {
 
     public ItemTorch() {
-        setRegistryName("torch");
+        setRegistryName(JETorches.ID, "torch");
         setUnlocalizedName(JETorches.ID + ".torch");
         setCreativeTab(JETorches.CTAB);
         setHasSubtypes(true);
     }
 
     @Override
-    public EnumActionResult onItemUse(
-            EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY,
-            float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos)) {
             pos = pos.offset(facing);
         }
 
         ItemStack stack = player.getHeldItem(hand);
-        Block torch = ModRegistry.BLOCK_TORCHES.get(stack.getMetadata());
+        Block torch = JETorchesRegistry.BLOCK_TORCHES.get(stack.getMetadata());
         int meta = getMetadata(stack.getMetadata());
         IBlockState state = torch.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, player, hand);
 
@@ -77,12 +73,10 @@ public class ItemTorch extends Item {
         }
     }
 
-    public boolean placeBlockAt(
-            ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY,
-            float hitZ, IBlockState state) {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState state) {
         if (world.setBlockState(pos, state, 11)) {
             IBlockState stateAt = world.getBlockState(pos);
-            Block torch = ModRegistry.BLOCK_TORCHES.get(stack.getMetadata());
+            Block torch = JETorchesRegistry.BLOCK_TORCHES.get(stack.getMetadata());
             if (torch.equals(stateAt.getBlock())) {
                 torch.onBlockPlacedBy(world, pos, stateAt, player, stack);
                 if (player instanceof EntityPlayerMP) {
@@ -92,18 +86,6 @@ public class ItemTorch extends Item {
             return true;
         }
         return false;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean canPlaceBlockOnSide(
-            World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
-        if (world.getBlockState(pos).getBlock().isReplaceable(world, pos)) {
-            side = EnumFacing.UP;
-        } else {
-            pos = pos.offset(side);
-        }
-        Block torch = ModRegistry.BLOCK_TORCHES.get(stack.getMetadata());
-        return world.mayPlace(torch, pos, false, side, null);
     }
 
 }

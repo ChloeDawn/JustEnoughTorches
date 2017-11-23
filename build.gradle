@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "$mcVersion-$modVersion"
+version = "1.12.2-$modVersion"
 group = 'net.insomniakitten.jetorches'
 archivesBaseName = 'jetorches'
 
@@ -18,7 +18,7 @@ sourceCompatibility = 1.8
 libsDirName = '../compiled'
 
 minecraft {
-    version = "$mcVersion-$mcfVersion"
+    version = mcfVersion
     mappings = mcpMappings
     runDir = 'run'
     replaceIn 'JETorches.java'
@@ -38,8 +38,7 @@ dependencies {
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info', 'pack.mcmeta'
-        expand 'mod_version': modVersion,
-                'mc_version': mcVersion
+        expand 'version': modVersion
     }
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info', 'pack.mcmeta'

@@ -2,8 +2,8 @@ package net.insomniakitten.jetorches.block;
 
 import com.google.common.collect.ImmutableMap;
 import net.insomniakitten.jetorches.JETorches;
-import net.insomniakitten.jetorches.ModConfig;
-import net.insomniakitten.jetorches.ModRegistry;
+import net.insomniakitten.jetorches.JETorchesConfig;
+import net.insomniakitten.jetorches.JETorchesRegistry;
 import net.insomniakitten.jetorches.type.TorchType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -39,7 +39,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class BlockTorch extends Block {
+public final class BlockTorch extends Block {
 
     private static final PropertyDirection FACING = PropertyDirection
             .create("facing", facing -> facing != EnumFacing.DOWN);
@@ -57,7 +57,7 @@ public class BlockTorch extends Block {
     public BlockTorch(TorchType type) {
         super(type.getMaterial());
         this.type = type;
-        setRegistryName("torch_" + type.getName());
+        setRegistryName(JETorches.ID, "torch_" + type.getName());
         setUnlocalizedName(JETorches.ID + ".torch_" + type.getName());
         setLightLevel(type.getLightLevel() / 15.0F);
         setHardness(type.getHardness());
@@ -162,7 +162,7 @@ public class BlockTorch extends Block {
 
     @Override
     public int damageDropped(IBlockState state) {
-        return ModRegistry.BLOCK_TORCHES.indexOf(this);
+        return JETorchesRegistry.BLOCK_TORCHES.indexOf(this);
     }
 
     @Override
@@ -183,9 +183,7 @@ public class BlockTorch extends Block {
 
     @Override
     @Deprecated
-    public IBlockState getStateForPlacement(
-            World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-            EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (canPlaceAt(world, pos, facing)) {
             return getDefaultState().withProperty(FACING, facing);
         }
@@ -216,24 +214,20 @@ public class BlockTorch extends Block {
     }
 
     @Override
-    public void getDrops(
-            NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        drops.add(new ItemStack(ModRegistry.ITEM_TORCH, 1, ModRegistry.BLOCK_TORCHES.indexOf(this)));
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        drops.add(new ItemStack(JETorchesRegistry.ITEM_TORCH, 1, JETorchesRegistry.BLOCK_TORCHES.indexOf(this)));
     }
 
     @Override
-    public ItemStack getPickBlock(
-            IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(ModRegistry.ITEM_TORCH, 1, ModRegistry.BLOCK_TORCHES.indexOf(this));
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        return new ItemStack(JETorchesRegistry.ITEM_TORCH, 1, JETorchesRegistry.BLOCK_TORCHES.indexOf(this));
     }
 
     @Override
-    public Boolean isEntityInsideMaterial(
-            IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material,
-            boolean checkHead) {
+    public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material, boolean checkHead) {
         boolean waterAbove = Material.WATER.equals(world.getBlockState(pos.up()).getMaterial());
         boolean isPrismarine = TorchType.PRISMARINE.equals(((BlockTorch) state.getBlock()).getType());
-        if (ModConfig.prismarineUnderwater && isPrismarine && waterAbove) {
+        if (JETorchesConfig.prismarineUnderwater && isPrismarine && waterAbove) {
             boolean adjacentWater = false;
             Vec3i offset = new Vec3i(1, 0, 1);
             BlockPos min = pos.subtract(offset);
@@ -251,8 +245,7 @@ public class BlockTorch extends Block {
     }
 
     @Override
-    public Vec3d getFogColor(
-            World world, BlockPos pos, IBlockState state, Entity entity, Vec3d lastColor, float partialTicks) {
+    public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d lastColor, float partialTicks) {
         float k = 0.00F;
         if (!(entity instanceof EntityLivingBase)) {
             return new Vec3d(0.02F + k, 0.02F + k, 0.20F + k);

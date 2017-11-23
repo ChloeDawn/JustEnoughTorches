@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = JETorches.ID)
-public class ModRegistry {
+public final class JETorchesRegistry {
 
     public static final List<BlockTorch> BLOCK_TORCHES = new ArrayList<>();
     public static final BlockLamp BLOCK_LAMP = new BlockLamp();
@@ -37,6 +37,8 @@ public class ModRegistry {
     public static final ItemMaterial ITEM_MATERIAL = new ItemMaterial();
 
     public static final ItemStack ANY_TORCH = new ItemStack(ITEM_TORCH, 1, Short.MAX_VALUE);
+
+    private JETorchesRegistry() {}
 
     @SubscribeEvent
     protected static void onBlockRegistry(RegistryEvent.Register<Block> event) {
@@ -78,7 +80,7 @@ public class ModRegistry {
             ModelLoader.setCustomModelResourceLocation(ITEM_TORCH, torch.getMetadata(), mrl);
         }
         for (MaterialType material : MaterialType.values()) {
-            ResourceLocation rl = ITEM_MATERIAL.getRegistryName();
+            ResourceLocation rl = new ResourceLocation(JETorches.ID, "material");
             ModelResourceLocation mrl = new ModelResourceLocation(rl, "type=" + material.getName());
             ModelLoader.setCustomModelResourceLocation(ITEM_MATERIAL, material.getMetadata(), mrl);
         }

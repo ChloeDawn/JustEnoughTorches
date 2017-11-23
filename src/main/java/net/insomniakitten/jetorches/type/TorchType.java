@@ -1,6 +1,6 @@
 package net.insomniakitten.jetorches.type;
 
-import net.insomniakitten.jetorches.ModConfig;
+import net.insomniakitten.jetorches.JETorchesConfig;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -74,7 +74,7 @@ public enum TorchType implements IStringSerializable {
     }
 
     public Material getMaterial() {
-        return equals(PRISMARINE) && ModConfig.prismarineUnderwater ? MATERIAL_STABLE : Material.CIRCUITS;
+        return equals(PRISMARINE) && JETorchesConfig.prismarineUnderwater ? MATERIAL_STABLE : Material.CIRCUITS;
     }
 
     public SoundType getSoundType() {

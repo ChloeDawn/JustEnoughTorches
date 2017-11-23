@@ -25,14 +25,14 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockLamp extends Block {
+public final class BlockLamp extends Block {
 
     private static final PropertyBool POWERED = PropertyBool.create("powered");
     private static final PropertyEnum<LampType> TYPE = PropertyEnum.create("type", LampType.class);
 
     public BlockLamp() {
         super(Material.GLASS);
-        setRegistryName("lamp");
+        setRegistryName(JETorches.ID, "lamp");
         setUnlocalizedName(JETorches.ID + ".lamp");
         setCreativeTab(JETorches.CTAB);
         setSoundType(SoundType.GLASS);
@@ -42,14 +42,14 @@ public class BlockLamp extends Block {
     @Deprecated
     public IBlockState getStateFromMeta(int meta) {
         boolean powered = (meta & 1) != 0;
-        LampType type = LampType.getType(meta >> 2);
+        LampType type = LampType.getType(meta >> 1);
         return getDefaultState().withProperty(POWERED, powered).withProperty(TYPE, type);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
         int powered = state.getValue(POWERED) ? 1 : 0;
-        int type = state.getValue(TYPE).getMetadata() << 2;
+        int type = state.getValue(TYPE).getMetadata() << 1;
         return powered | type;
     }
 
@@ -81,8 +81,7 @@ public class BlockLamp extends Block {
     }
 
     @Override
-    public void getDrops(
-            NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         drops.add(new ItemStack(this, 1, state.getValue(TYPE).getMetadata()));
     }
 
@@ -92,15 +91,12 @@ public class BlockLamp extends Block {
     }
 
     @Override
-    public ItemStack getPickBlock(
-            IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         return new ItemStack(this, 1, state.getValue(TYPE).getMetadata());
     }
 
     @Override
-    public IBlockState getStateForPlacement(
-            World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta,
-            EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
         return getDefaultState().withProperty(POWERED, false).withProperty(TYPE, LampType.getType(meta));
     }
 
@@ -108,12 +104,12 @@ public class BlockLamp extends Block {
         if (!world.isRemote) {
             boolean isPowered = world.isBlockPowered(pos);
             if (isPowered != state.getValue(POWERED)) {
-                world.setBlockState(pos, state.withProperty(POWERED, isPowered));
+                world.setBlockState(pos, state.withProperty(POWERED, isPowered), 2);
             }
         }
     }
 
-    public static class LampStateMapper extends StateMapperBase {
+    public static final class LampStateMapper extends StateMapperBase {
 
         @Override
         protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
