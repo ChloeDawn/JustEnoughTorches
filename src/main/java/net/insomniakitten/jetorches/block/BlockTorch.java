@@ -214,7 +214,8 @@ public final class BlockTorch extends Block {
 
     @Override
     public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-        return world.getBlockState(pos.offset(side)).getBlock() instanceof BlockLiquid && !world.isAirBlock(pos.up());
+        return world.getBlockState(pos.offset(side)).getMaterial().isLiquid()
+                && world.getBlockState(pos.up()).getMaterial().isLiquid();
     }
 
     @Override
