@@ -1,6 +1,7 @@
 package net.insomniakitten.jetorches.data;
 
 import net.insomniakitten.jetorches.JETorchesConfig;
+import net.insomniakitten.jetorches.util.IColored;
 import net.insomniakitten.jetorches.util.IOreDict;
 import net.insomniakitten.jetorches.util.MaterialTorch;
 import net.minecraft.block.SoundType;
@@ -11,7 +12,7 @@ import net.minecraft.util.IStringSerializable;
 import java.util.Locale;
 import java.util.function.Consumer;
 
-public enum TorchData implements IStringSerializable, IOreDict {
+public enum TorchData implements IStringSerializable, IOreDict, IColored {
 
     STONE("torchStone", 14, SoundType.STONE, EnumParticleTypes.FLAME),
     NETHER("torchNetherrack", 10, SoundType.STONE, EnumParticleTypes.SMOKE_NORMAL),
@@ -89,6 +90,11 @@ public enum TorchData implements IStringSerializable, IOreDict {
     @Override
     public String getOreName() {
         return ore;
+    }
+
+    @Override
+    public int getColor() {
+        return 0;
     }
 
 }

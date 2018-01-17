@@ -16,7 +16,7 @@ public final class ItemLamp extends ItemBlock implements IModelled, IOreDict {
 
     @Override
     public String getOreName() {
-        return ((BlockLamp) block).getLamp().getOreName();
+        return ((BlockLamp) block).getLampData().getOreName();
     }
 
     @Override

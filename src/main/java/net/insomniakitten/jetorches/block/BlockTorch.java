@@ -3,6 +3,7 @@ package net.insomniakitten.jetorches.block;
 import com.google.common.collect.ImmutableMap;
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.data.TorchData;
+import net.insomniakitten.jetorches.util.ColoredLight;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.EnumPushReaction;
@@ -14,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -26,9 +28,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public final class BlockTorch extends Block {
@@ -204,6 +208,19 @@ public final class BlockTorch extends Block {
     @Override
     public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return world.getBlockState(pos.offset(side)).getBlock() instanceof BlockLiquid && !world.isAirBlock(pos.up());
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return Loader.isModLoaded("mirage");
+    }
+
+    @Override
+    @Nullable
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        int color = getTorchData().getColor();
+        float radius = getTorchData().getLight() / 2.0F;
+        return hasTileEntity(state) ? new ColoredLight(color, radius) : null;
     }
 
     @Override

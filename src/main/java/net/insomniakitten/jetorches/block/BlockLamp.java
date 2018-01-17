@@ -2,15 +2,20 @@ package net.insomniakitten.jetorches.block;
 
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.data.LampData;
+import net.insomniakitten.jetorches.util.ColoredLight;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
+
+import javax.annotation.Nullable;
 
 public final class BlockLamp extends Block {
 
@@ -29,7 +34,7 @@ public final class BlockLamp extends Block {
         setCreativeTab(JETorches.TAB);
     }
 
-    public LampData getLamp() {
+    public LampData getLampData() {
         return lamp;
     }
 
@@ -64,6 +69,18 @@ public final class BlockLamp extends Block {
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return state.getValue(POWERED) ? 15 : 0;
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return Loader.isModLoaded("mirage");
+    }
+
+    @Override
+    @Nullable
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        int color = getLampData().getColor();
+        return hasTileEntity(state) ? new ColoredLight(color, 7.5F) : null;
     }
 
     protected void updatePoweredState(IBlockState state, World world, BlockPos pos) {

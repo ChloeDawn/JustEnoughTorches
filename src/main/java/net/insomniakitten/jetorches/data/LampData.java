@@ -1,12 +1,13 @@
 package net.insomniakitten.jetorches.data;
 
+import net.insomniakitten.jetorches.util.IColored;
 import net.insomniakitten.jetorches.util.IOreDict;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Locale;
 import java.util.function.Consumer;
 
-public enum LampData implements IStringSerializable, IOreDict {
+public enum LampData implements IStringSerializable, IOreDict, IColored {
 
     LAPIS("blockLampLapis", 0.3F, 1.5F),
     OBSIDIAN("blockLampObsidian", 2.0F, 3000.0F),
@@ -44,6 +45,11 @@ public enum LampData implements IStringSerializable, IOreDict {
     @Override
     public String getOreName() {
         return ore;
+    }
+
+    @Override
+    public int getColor() {
+        return 0;
     }
 
 }
