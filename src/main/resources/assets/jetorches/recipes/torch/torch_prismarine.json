@@ -6,5 +6,5 @@
         "O": { "ore": "dustPrismarine", "type": "forge:ore_dict" },
         "S": { "ore": "stickPrismarine", "type": "forge:ore_dict" }
     },
-    "result": { "item": "jetorches:torch", "data": 2, "count": 4 }
+    "result": { "item": "jetorches:torch_prismarine", "count": 4 }
 }

@@ -6,5 +6,5 @@
         "O": { "item": "minecraft:blaze_powder" },
         "S": { "ore": "stickNetherrack", "type": "forge:ore_dict" }
     },
-    "result": { "item": "jetorches:torch", "data": 1, "count": 4 }
+    "result": { "item": "jetorches:torch_nether", "count": 4 }
 }

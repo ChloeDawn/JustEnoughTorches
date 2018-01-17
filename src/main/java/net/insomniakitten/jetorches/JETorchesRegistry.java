@@ -2,17 +2,18 @@ package net.insomniakitten.jetorches;
 
 import net.insomniakitten.jetorches.block.BlockLamp;
 import net.insomniakitten.jetorches.block.BlockTorch;
+import net.insomniakitten.jetorches.data.LampData;
+import net.insomniakitten.jetorches.data.MaterialData;
+import net.insomniakitten.jetorches.data.TorchData;
 import net.insomniakitten.jetorches.item.ItemLamp;
 import net.insomniakitten.jetorches.item.ItemMaterial;
 import net.insomniakitten.jetorches.item.ItemTorch;
-import net.insomniakitten.jetorches.type.LampType;
-import net.insomniakitten.jetorches.type.MaterialType;
-import net.insomniakitten.jetorches.type.TorchType;
+import net.insomniakitten.jetorches.util.IModelled;
+import net.insomniakitten.jetorches.util.IOreDict;
+import net.insomniakitten.jetorches.util.RegistryHolder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -22,68 +23,46 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @Mod.EventBusSubscriber(modid = JETorches.ID)
 public final class JETorchesRegistry {
 
-    public static final List<BlockTorch> BLOCK_TORCHES = new ArrayList<>();
-    public static final BlockLamp BLOCK_LAMP = new BlockLamp();
+    private static final RegistryHolder<Block> TORCHES = new RegistryHolder<>();
+    private static final RegistryHolder<Block> LAMPS = new RegistryHolder<>();
 
-    public static final ItemLamp ITEM_LAMP = new ItemLamp(BLOCK_LAMP);
-    public static final ItemTorch ITEM_TORCH = new ItemTorch();
-    public static final ItemMaterial ITEM_MATERIAL = new ItemMaterial();
-
-    public static final ItemStack ANY_TORCH = new ItemStack(ITEM_TORCH, 1, Short.MAX_VALUE);
+    private static final RegistryHolder<Item> ITEMS = new RegistryHolder<>();
 
     private JETorchesRegistry() {}
 
     @SubscribeEvent
     protected static void onBlockRegistry(RegistryEvent.Register<Block> event) {
-        Arrays.stream(TorchType.values()).map(BlockTorch::new).forEach(BLOCK_TORCHES::add);
-        BLOCK_TORCHES.forEach(event.getRegistry()::register);
-        event.getRegistry().register(BLOCK_LAMP);
+        RegistryHolder<Block>.Registry torches = TORCHES.begin(event);
+        TorchData.forEach(t -> torches.register(new BlockTorch(t)));
+        RegistryHolder<Block>.Registry lamps = LAMPS.begin(event);
+        LampData.forEach(l -> lamps.register(new BlockLamp(l)));
     }
 
     @SubscribeEvent
     protected static void onItemRegistry(RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(ITEM_LAMP, ITEM_TORCH, ITEM_MATERIAL);
-        OreDictionary.registerOre("torch", ANY_TORCH);
-        for (LampType lamp : LampType.values()) {
-            ItemStack stack = new ItemStack(ITEM_LAMP, 1, lamp.getMetadata());
-            OreDictionary.registerOre(lamp.getOreDict(), stack);
-        }
-        for (TorchType torch : TorchType.values()) {
-            ItemStack stack = new ItemStack(ITEM_TORCH, 1, torch.getMetadata());
-            OreDictionary.registerOre(torch.getOreDict(), stack);
-        }
-        for (MaterialType material : MaterialType.values()) {
-            ItemStack stack = new ItemStack(ITEM_MATERIAL, 1, material.getMetadata());
-            OreDictionary.registerOre(material.getOreDict(), stack);
-        }
+        RegistryHolder<Item>.Registry items = ITEMS.begin(event);
+        MaterialData.forEach(m -> items.register(new ItemMaterial(m)));
+        TORCHES.entries().forEach(t -> items.register(new ItemTorch((BlockTorch) t)));
+        LAMPS.entries().forEach(l -> items.register(new ItemLamp((BlockLamp) l)));
+        ITEMS.entries().forEach(i -> {
+            if (i instanceof IOreDict) {
+                OreDictionary.registerOre(((IOreDict) i).getOreName(), i);
+            }
+        });
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     protected static void onModelRegistry(ModelRegistryEvent event) {
-        ModelLoader.setCustomStateMapper(BLOCK_LAMP, new BlockLamp.LampStateMapper());
-        for (LampType lamp : LampType.values()) {
-            ResourceLocation rl = new ResourceLocation(JETorches.ID, "lamp_" + lamp.getName());
-            ModelResourceLocation mrl = new ModelResourceLocation(rl, "powered=false");
-            ModelLoader.setCustomModelResourceLocation(ITEM_LAMP, lamp.getMetadata(), mrl);
-        }
-        for (TorchType torch : TorchType.values()) {
-            ResourceLocation rl = new ResourceLocation(JETorches.ID, "torch_" + torch.getName());
-            ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
-            ModelLoader.setCustomModelResourceLocation(ITEM_TORCH, torch.getMetadata(), mrl);
-        }
-        for (MaterialType material : MaterialType.values()) {
-            ResourceLocation rl = new ResourceLocation(JETorches.ID, "material");
-            ModelResourceLocation mrl = new ModelResourceLocation(rl, "type=" + material.getName());
-            ModelLoader.setCustomModelResourceLocation(ITEM_MATERIAL, material.getMetadata(), mrl);
-        }
+        ITEMS.entries().forEach(i -> {
+            if (i instanceof IModelled) {
+                ModelResourceLocation mrl = ((IModelled) i).getModelResourceLocation();
+                ModelLoader.setCustomModelResourceLocation(i, 0, mrl);
+            }
+        });
     }
 
 }

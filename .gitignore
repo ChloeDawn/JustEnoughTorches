@@ -1,8 +1,24 @@
-*.iml
-.gradle/
+# eclipse
+.classpath/
+.metadata/
+.project/
+.settings/
+*.launch
+bin/
+eclipse/
+
+# idea
 .idea/
-build/
-compiled/
-docs/
+*.iml
+*.ipr
+*.iws
 out/
+
+# gradle
+.gradle/
+build/
 run/
+
+# other
+psd/
+releases/

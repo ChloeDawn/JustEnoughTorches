@@ -1,40 +1,27 @@
 package net.insomniakitten.jetorches.item;
 
-import net.insomniakitten.jetorches.JETorches;
-import net.insomniakitten.jetorches.type.LampType;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
+import net.insomniakitten.jetorches.block.BlockLamp;
+import net.insomniakitten.jetorches.util.IModelled;
+import net.insomniakitten.jetorches.util.IOreDict;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 
-public final class ItemLamp extends ItemBlock {
+public final class ItemLamp extends ItemBlock implements IModelled, IOreDict {
 
-    public ItemLamp(Block block) {
+    public ItemLamp(BlockLamp block) {
         super(block);
-        setRegistryName(JETorches.ID, "lamp");
-        setUnlocalizedName(JETorches.ID + ".lamp");
-        setHasSubtypes(true);
+        //noinspection ConstantConditions
+        setRegistryName(block.getRegistryName());
     }
 
     @Override
-    public int getMetadata(int damage) {
-        return damage;
+    public String getOreName() {
+        return ((BlockLamp) block).getLamp().getOreName();
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        LampType type = LampType.getType(stack.getMetadata());
-        return getUnlocalizedName() + "_" + type.getName();
-    }
-
-    @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        if (isInCreativeTab(tab)) {
-            for (LampType lamp : LampType.values()) {
-                items.add(new ItemStack(this, 1, lamp.getMetadata()));
-            }
-        }
+    public ModelResourceLocation getModelResourceLocation() {
+        return new ModelResourceLocation(getRegistryName(), "powered=false");
     }
 
 }

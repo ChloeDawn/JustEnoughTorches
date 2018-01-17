@@ -5,5 +5,5 @@
     "key": {
         "O": { "ore": "nuggetGold", "type": "forge:ore_dict" }
     },
-    "result": { "item": "jetorches:material", "data": 4, "count": 4 }
+    "result": { "item": "jetorches:stick_golden", "count": 4 }
 }

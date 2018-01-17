@@ -10,12 +10,19 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
+def modVersion = '2.1.0'
+def mcfVersion= '1.12.2-14.23.1.2590'
+def mcpMappings= 'snapshot_20180117'
+
+def hwylaVersion = '1.8.23-B38_1.12'
+def jeiVersion = '1.12.2:4.8.5.146'
+
 version = "1.12.2-$modVersion"
 group = 'net.insomniakitten.jetorches'
 archivesBaseName = 'jetorches'
 
 sourceCompatibility = 1.8
-libsDirName = '../compiled'
+libsDirName = '../releases'
 
 minecraft {
     version = mcfVersion

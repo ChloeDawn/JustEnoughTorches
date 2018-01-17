@@ -5,5 +5,5 @@
     "key": {
         "O": { "ore": "cobblestone", "type": "forge:ore_dict" }
     },
-    "result": { "item": "jetorches:material", "data": 0, "count": 4 }
+    "result": { "item": "jetorches:stick_stone", "count": 4 }
 }

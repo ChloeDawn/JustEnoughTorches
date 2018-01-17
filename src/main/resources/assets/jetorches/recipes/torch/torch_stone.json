@@ -6,5 +6,5 @@
         "O": { "item": "minecraft:coal", "data": 32767 },
         "S": { "ore": "stickStone", "type": "forge:ore_dict" }
     },
-    "result": { "item": "jetorches:torch", "data": 0, "count": 4 }
+    "result": { "item": "jetorches:torch_stone", "count": 4 }
 }

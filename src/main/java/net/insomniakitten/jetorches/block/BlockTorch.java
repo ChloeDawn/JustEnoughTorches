@@ -2,9 +2,7 @@ package net.insomniakitten.jetorches.block;
 
 import com.google.common.collect.ImmutableMap;
 import net.insomniakitten.jetorches.JETorches;
-import net.insomniakitten.jetorches.JETorchesConfig;
-import net.insomniakitten.jetorches.JETorchesRegistry;
-import net.insomniakitten.jetorches.type.TorchType;
+import net.insomniakitten.jetorches.data.TorchData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.EnumPushReaction;
@@ -13,23 +11,17 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.MobEffects;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Mirror;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
@@ -52,18 +44,26 @@ public final class BlockTorch extends Block {
             EnumFacing.EAST, new AxisAlignedBB(0.00D, 0.20D, 0.35D, 0.30D, 0.80D, 0.65D)
     );
 
-    private final TorchType type;
+    private final TorchData torch;
 
-    public BlockTorch(TorchType type) {
-        super(type.getMaterial());
-        this.type = type;
-        setRegistryName(JETorches.ID, "torch_" + type.getName());
-        setUnlocalizedName(JETorches.ID + ".torch_" + type.getName());
-        setLightLevel(type.getLightLevel() / 15.0F);
-        setHardness(type.getHardness());
-        setResistance(type.getResistance());
-        setSoundType(type.getSoundType());
+    public BlockTorch(TorchData torch) {
+        super(torch.getMaterial());
+        this.torch = torch;
+        setRegistryName(JETorches.ID, "torch_" + torch.getName());
+        setUnlocalizedName(JETorches.ID + ".torch_" + torch.getName());
+        setSoundType(torch.getSound());
+        setHardness(torch.getHardness());
+        setResistance(torch.getResistance());
+        setLightLevel(torch.getLight());
+        setCreativeTab(JETorches.TAB);
         setTickRandomly(true);
+
+    }
+
+    @Override
+    @Deprecated
+    public Material getMaterial(IBlockState state) {
+        return torch.getMaterial();
     }
 
     @Override
@@ -133,8 +133,8 @@ public final class BlockTorch extends Block {
             posZ += 0.27D * offset.getFrontOffsetZ();
         }
         if (world.isRemote) {
-            world.spawnParticle(type.getParticle(), posX, posY, posZ, 0.00D, 0.00D, 0.00D);
-            if (type.getParticle() == EnumParticleTypes.FLAME) {
+            world.spawnParticle(getTorchData().getParticle(), posX, posY, posZ, 0.00D, 0.00D, 0.00D);
+            if (getTorchData().getParticle() == EnumParticleTypes.FLAME) {
                 world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY, posZ, 0.00D, 0.00D, 0.00D);
             }
         }
@@ -158,11 +158,6 @@ public final class BlockTorch extends Block {
             dropBlockAsItem(world, pos, state, 0);
             world.setBlockToAir(pos);
         }
-    }
-
-    @Override
-    public int damageDropped(IBlockState state) {
-        return JETorchesRegistry.BLOCK_TORCHES.indexOf(this);
     }
 
     @Override
@@ -208,32 +203,17 @@ public final class BlockTorch extends Block {
 
     @Override
     public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-        IBlockState stateAt = world.getBlockState(pos.offset(side));
-        IBlockState stateAbove = world.getBlockState(pos.up());
-        return stateAt.getBlock() instanceof BlockLiquid && !Blocks.AIR.equals(stateAbove.getBlock());
-    }
-
-    @Override
-    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        drops.add(new ItemStack(JETorchesRegistry.ITEM_TORCH, 1, JETorchesRegistry.BLOCK_TORCHES.indexOf(this)));
-    }
-
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(JETorchesRegistry.ITEM_TORCH, 1, JETorchesRegistry.BLOCK_TORCHES.indexOf(this));
+        return world.getBlockState(pos.offset(side)).getBlock() instanceof BlockLiquid && !world.isAirBlock(pos.up());
     }
 
     @Override
     public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material, boolean checkHead) {
-        boolean waterAbove = Material.WATER.equals(world.getBlockState(pos.up()).getMaterial());
-        boolean isPrismarine = TorchType.PRISMARINE.equals(((BlockTorch) state.getBlock()).getType());
-        if (JETorchesConfig.prismarineUnderwater && isPrismarine && waterAbove) {
+        if (getTorchData().canWorkUnderwater() && Material.WATER.equals(world.getBlockState(pos.up()).getMaterial())) {
             boolean adjacentWater = false;
             Vec3i offset = new Vec3i(1, 0, 1);
             BlockPos min = pos.subtract(offset);
             BlockPos max = pos.add(offset);
-            Iterable<MutableBlockPos> adjacentBlocks = BlockPos.getAllInBoxMutable(min, max);
-            for (MutableBlockPos target : adjacentBlocks) {
+            for (MutableBlockPos target : BlockPos.getAllInBoxMutable(min, max)) {
                 if (world.getBlockState(target).getMaterial().equals(Material.WATER)) {
                     adjacentWater = true;
                     break;
@@ -246,20 +226,24 @@ public final class BlockTorch extends Block {
 
     @Override
     public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d lastColor, float partialTicks) {
-        float k = 0.00F;
-        if (!(entity instanceof EntityLivingBase)) {
-            return new Vec3d(0.02F + k, 0.02F + k, 0.20F + k);
-        } else {
-            EntityLivingBase living = (EntityLivingBase) entity;
-            if (living.isInsideOfMaterial(Material.WATER)) {
-                k = EnchantmentHelper.getRespirationModifier(living) * 0.20F;
-                if (living.isPotionActive(MobEffects.WATER_BREATHING)) {
-                    k = k * 0.30F + 0.60F;
+        if (getTorchData().canWorkUnderwater()) {
+            pos = pos.up();
+            state = world.getBlockState(pos);
+            if (state.getMaterial().isLiquid()) {
+                float height = 0.0F;
+                if (state.getBlock() instanceof BlockLiquid) {
+                    int meta = state.getValue(BlockLiquid.LEVEL);
+                    if (meta >= 8) meta = 0;
+                    height = (float) (meta + 1) / 9.0F - 0.11111111F;
                 }
-                return new Vec3d(0.02F + k, 0.02F + k, 0.20F + k);
+                if (ActiveRenderInfo.projectViewFromEntity(entity, partialTicks).y > (pos.getY() + 1) - height) {
+                    BlockPos upPos = pos.up();
+                    IBlockState upState = world.getBlockState(upPos);
+                    return upState.getBlock().getFogColor(world, upPos, upState, entity, lastColor, partialTicks);
+                }
             }
-            return lastColor;
         }
+        return super.getFogColor(world, pos, state, entity, lastColor, partialTicks);
     }
 
     protected boolean canPlaceOn(World world, BlockPos pos) {
@@ -278,8 +262,8 @@ public final class BlockTorch extends Block {
         return canPlaceOn(world, posAt) && side != EnumFacing.DOWN && isSolid(world, posAt, side);
     }
 
-    public final TorchType getType() {
-        return type;
+    public final TorchData getTorchData() {
+        return torch;
     }
 
 }
