@@ -4,24 +4,25 @@ import net.insomniakitten.jetorches.color.IColored;
 import net.insomniakitten.jetorches.util.IOreDict;
 import net.minecraft.util.IStringSerializable;
 
-import java.awt.Color;
 import java.util.Locale;
 import java.util.function.Consumer;
 
 public enum LampData implements IStringSerializable, IOreDict, IColored {
 
-    LAPIS("blockLampLapis", 0.3F, 1.5F),
-    OBSIDIAN("blockLampObsidian", 2.0F, 3000.0F),
-    QUARTZ("blockLampQuartz", 0.5F, 3.0F);
+    LAPIS("blockLampLapis", 0x003BC0, 0.3F, 1.5F),
+    OBSIDIAN("blockLampObsidian", 0x6300C0, 2.0F, 3000.0F),
+    QUARTZ("blockLampQuartz", 0xFFFFFF, 0.5F, 3.0F);
 
     public static final LampData[] VALUES = values();
 
     private final String ore;
+    private final int color;
     private final float hardness;
     private final float resistance;
 
-    LampData(String ore, float hardness, float resistance) {
+    LampData(String ore, int color, float hardness, float resistance) {
         this.ore = ore;
+        this.color = color;
         this.hardness = hardness;
         this.resistance = resistance;
     }
@@ -50,12 +51,12 @@ public enum LampData implements IStringSerializable, IOreDict, IColored {
 
     @Override
     public int getColor() {
-        return Color.PINK.getRGB(); // FIXME
+        return color;
     }
 
     @Override
     public float getRadius() {
-        return 80.0F;
+        return 6.0F;
     }
 
 }

@@ -9,44 +9,45 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 
-import java.awt.Color;
 import java.util.Locale;
 import java.util.function.Consumer;
 
 public enum TorchData implements IStringSerializable, IOreDict, IColored {
 
-    STONE("torchStone", 14, SoundType.STONE, EnumParticleTypes.FLAME),
-    NETHER("torchNetherrack", 10, SoundType.STONE, EnumParticleTypes.SMOKE_NORMAL),
-    PRISMARINE("torchPrismarine", 15, SoundType.GLASS, EnumParticleTypes.WATER_DROP) {
+    STONE("torchStone", 14, 0xFFDE6C, SoundType.STONE, EnumParticleTypes.FLAME),
+    NETHER("torchNetherrack", 10, 0xFF7200, SoundType.STONE, EnumParticleTypes.SMOKE_NORMAL),
+    PRISMARINE("torchPrismarine", 15, 0x66E8E0, SoundType.GLASS, EnumParticleTypes.WATER_DROP) {
         @Override
         public boolean canWorkUnderwater() {
             return JETorchesConfig.prismarineUnderwater;
         }
     },
-    OBSIDIAN("torchObsidian", 13, SoundType.STONE, 0.2F, 3000.0F, EnumParticleTypes.FLAME),
-    GOLDEN("torchGold", 14, SoundType.METAL, 0.0F, 30.0F, EnumParticleTypes.FLAME);
+    OBSIDIAN("torchObsidian", 13, 0x6300C0, SoundType.STONE, 0.2F, 3000.0F, EnumParticleTypes.FLAME),
+    GOLDEN("torchGold", 14, 0xEBBC3C, SoundType.METAL, 0.0F, 30.0F, EnumParticleTypes.FLAME);
 
     public static final TorchData[] VALUES = values();
 
     private final String ore;
     private final int light;
+    private final int color;
     private final SoundType sound;
     private final float hardness;
     private final float resistance;
 
     private final EnumParticleTypes particle;
 
-    TorchData(String ore, int light, SoundType sound, float hardness, float resistance, EnumParticleTypes particle) {
+    TorchData(String ore, int light, int color, SoundType sound, float hardness, float resistance, EnumParticleTypes particle) {
         this.ore = ore;
         this.light = light;
+        this.color = color;
         this.sound = sound;
         this.hardness = hardness;
         this.resistance = resistance;
         this.particle = particle;
     }
 
-    TorchData(String ore, int light, SoundType sound, EnumParticleTypes particle) {
-        this(ore, light, sound, 0.0F, 0.0F, particle);
+    TorchData(String ore, int light, int color, SoundType sound, EnumParticleTypes particle) {
+        this(ore, light, color, sound, 0.0F, 0.0F, particle);
     }
 
     public static void forEach(Consumer<TorchData> consumer) {
@@ -95,7 +96,7 @@ public enum TorchData implements IStringSerializable, IOreDict, IColored {
 
     @Override
     public int getColor() {
-        return Color.PINK.getRGB(); // FIXME
+        return color;
     }
 
     @Override
