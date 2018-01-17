@@ -68,6 +68,7 @@ public final class BlockLamp extends Block {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+        if (Loader.isModLoaded("mirage")) return 0;
         return state.getValue(POWERED) ? 15 : 0;
     }
 

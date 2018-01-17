@@ -206,6 +206,12 @@ public final class BlockTorch extends Block {
     }
 
     @Override
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+        if (Loader.isModLoaded("mirage")) return 0;
+        return super.getLightValue(state, world, pos);
+    }
+
+    @Override
     public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return world.getBlockState(pos.offset(side)).getBlock() instanceof BlockLiquid && !world.isAirBlock(pos.up());
     }
