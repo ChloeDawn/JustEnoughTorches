@@ -1,7 +1,7 @@
 package net.insomniakitten.jetorches.data;
 
 import net.insomniakitten.jetorches.JETorchesConfig;
-import net.insomniakitten.jetorches.util.IColored;
+import net.insomniakitten.jetorches.color.IColored;
 import net.insomniakitten.jetorches.util.IOreDict;
 import net.insomniakitten.jetorches.util.MaterialTorch;
 import net.minecraft.block.SoundType;
@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 
+import java.awt.Color;
 import java.util.Locale;
 import java.util.function.Consumer;
 
@@ -94,7 +95,13 @@ public enum TorchData implements IStringSerializable, IOreDict, IColored {
 
     @Override
     public int getColor() {
-        return 0;
+        return Color.PINK.getRGB(); // FIXME
     }
+
+    @Override
+    public float getRadius() {
+        return getLight() * 6.0F;
+    }
+
 
 }

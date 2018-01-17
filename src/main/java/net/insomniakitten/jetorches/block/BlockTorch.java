@@ -2,8 +2,9 @@ package net.insomniakitten.jetorches.block;
 
 import com.google.common.collect.ImmutableMap;
 import net.insomniakitten.jetorches.JETorches;
+import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.data.TorchData;
-import net.insomniakitten.jetorches.util.ColoredLight;
+import net.insomniakitten.jetorches.color.ColoredLight;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.EnumPushReaction;
@@ -207,7 +208,7 @@ public final class BlockTorch extends Block {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        if (Loader.isModLoaded("mirage")) return 0;
+        if (JETorchesConfig.coloredLighting && Loader.isModLoaded("mirage")) return 0;
         return super.getLightValue(state, world, pos);
     }
 
@@ -218,14 +219,14 @@ public final class BlockTorch extends Block {
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
-        return Loader.isModLoaded("mirage");
+        return JETorchesConfig.coloredLighting;
     }
 
     @Override
     @Nullable
     public TileEntity createTileEntity(World world, IBlockState state) {
         int color = getTorchData().getColor();
-        float radius = getTorchData().getLight() / 2.0F;
+        float radius = getTorchData().getRadius();
         return hasTileEntity(state) ? new ColoredLight(color, radius) : null;
     }
 

@@ -10,10 +10,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = JETorches.ID)
 public final class JETorchesConfig {
 
-    @Config.Name("Prismarine Works Underwater")
+    @Config.Name("underwater_torches")
     @Config.Comment("If true, the prismarine torch will not break when placed in water.")
     @Config.RequiresMcRestart
     public static boolean prismarineUnderwater = true;
+
+    @Config.Name("colored_lighting")
+    @Config.Comment("If true, torches will produce colored lighting when Mirage is present.")
+    public static boolean coloredLighting = true;
 
     private JETorchesConfig() {}
 

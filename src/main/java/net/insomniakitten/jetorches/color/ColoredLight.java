@@ -1,18 +1,26 @@
-package net.insomniakitten.jetorches.util;
+package net.insomniakitten.jetorches.color;
 
 import com.elytradev.mirage.event.GatherLightsEvent;
 import com.elytradev.mirage.lighting.ILightEventConsumer;
 import com.elytradev.mirage.lighting.Light;
+import net.insomniakitten.jetorches.JETorches;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.awt.Color;
 
 @Optional.Interface(iface = "com.elytradev.mirage.lighting.ILightEventConsumer", modid = "mirage")
 public final class ColoredLight extends TileEntity implements ILightEventConsumer {
+
+    public static final String ID = JETorches.ID + ":colored_light";
 
     private int red;
     private int green;
@@ -55,12 +63,35 @@ public final class ColoredLight extends TileEntity implements ILightEventConsume
     }
 
     @Override
+    public final SPacketUpdateTileEntity getUpdatePacket() {
+        return new SPacketUpdateTileEntity(pos, 0, getUpdateTag());
+    }
+
+    @Override
+    public final NBTTagCompound getUpdateTag() {
+        return writeToNBT(super.getUpdateTag());
+    }
+
+    @Override
+    @Nonnull
+    public final ITextComponent getDisplayName() {
+        String name = getBlockType().getUnlocalizedName();
+        return new TextComponentTranslation(name + ".name");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        readFromNBT(pkt.getNbtCompound());
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     @Optional.Method(modid = "mirage")
     public void gatherLights(GatherLightsEvent event) {
         if (world != null && pos != null) {
             event.add(Light.builder()
-                    .color(red, green, blue)
+                    .color(red, green, blue, 2.0F)
                     .radius(radius)
                     .pos(pos)
                     .build());

@@ -1,9 +1,10 @@
 package net.insomniakitten.jetorches.data;
 
-import net.insomniakitten.jetorches.util.IColored;
+import net.insomniakitten.jetorches.color.IColored;
 import net.insomniakitten.jetorches.util.IOreDict;
 import net.minecraft.util.IStringSerializable;
 
+import java.awt.Color;
 import java.util.Locale;
 import java.util.function.Consumer;
 
@@ -49,7 +50,12 @@ public enum LampData implements IStringSerializable, IOreDict, IColored {
 
     @Override
     public int getColor() {
-        return 0;
+        return Color.PINK.getRGB(); // FIXME
+    }
+
+    @Override
+    public float getRadius() {
+        return 80.0F;
     }
 
 }

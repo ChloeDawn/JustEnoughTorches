@@ -2,6 +2,7 @@ package net.insomniakitten.jetorches;
 
 import net.insomniakitten.jetorches.block.BlockLamp;
 import net.insomniakitten.jetorches.block.BlockTorch;
+import net.insomniakitten.jetorches.color.ColoredLight;
 import net.insomniakitten.jetorches.data.LampData;
 import net.insomniakitten.jetorches.data.MaterialData;
 import net.insomniakitten.jetorches.data.TorchData;
@@ -19,6 +20,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -35,6 +37,7 @@ public final class JETorchesRegistry {
 
     @SubscribeEvent
     protected static void onBlockRegistry(RegistryEvent.Register<Block> event) {
+        GameRegistry.registerTileEntity(ColoredLight.class, ColoredLight.ID);
         RegistryHolder<Block>.Registry torches = TORCHES.begin(event);
         TorchData.forEach(t -> torches.register(new BlockTorch(t)));
         RegistryHolder<Block>.Registry lamps = LAMPS.begin(event);
