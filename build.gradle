@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-def modVersion = '3.0.0'
+def modVersion = '3.0.1'
 def mcfVersion= '1.12.2-14.23.1.2590'
 def mcpMappings= 'snapshot_20180117'
 
