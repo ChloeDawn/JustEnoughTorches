@@ -70,6 +70,7 @@ public final class BlockTorch extends Block {
     @Deprecated
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing facing = EnumFacing.values()[meta & 7];
+        if (facing == EnumFacing.DOWN) facing = EnumFacing.UP;
         return getDefaultState().withProperty(FACING, facing);
     }
 
