@@ -2,8 +2,9 @@ package net.insomniakitten.jetorches.block;
 
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
-import net.insomniakitten.jetorches.data.LampData;
 import net.insomniakitten.jetorches.color.ColoredLight;
+import net.insomniakitten.jetorches.data.LampData;
+import net.insomniakitten.jetorches.util.LightProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -14,7 +15,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nullable;
 
@@ -69,8 +69,7 @@ public final class BlockLamp extends Block {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        if (JETorchesConfig.coloredLighting && Loader.isModLoaded("mirage")) return 0;
-        return state.getValue(POWERED) ? 15 : 0;
+        return state.getValue(POWERED) ? LightProxy.getInstance().getActualLightValue().orElse(15) : 0;
     }
 
     @Override

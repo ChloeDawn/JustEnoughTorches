@@ -3,8 +3,9 @@ package net.insomniakitten.jetorches.block;
 import com.google.common.collect.ImmutableMap;
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
-import net.insomniakitten.jetorches.data.TorchData;
 import net.insomniakitten.jetorches.color.ColoredLight;
+import net.insomniakitten.jetorches.data.TorchData;
+import net.insomniakitten.jetorches.util.LightProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.EnumPushReaction;
@@ -29,7 +30,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -209,8 +209,7 @@ public final class BlockTorch extends Block {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        if (JETorchesConfig.coloredLighting && Loader.isModLoaded("mirage")) return 0;
-        return super.getLightValue(state, world, pos);
+        return LightProxy.getInstance().getActualLightValue().orElse(lightValue);
     }
 
     @Override
