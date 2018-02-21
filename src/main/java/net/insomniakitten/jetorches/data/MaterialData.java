@@ -4,7 +4,6 @@ import net.insomniakitten.jetorches.util.IOreDict;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Locale;
-import java.util.function.Consumer;
 
 public enum MaterialData implements IStringSerializable, IOreDict {
 
@@ -26,10 +25,6 @@ public enum MaterialData implements IStringSerializable, IOreDict {
 
     MaterialData(String ore) {
         this(ore, 64);
-    }
-
-    public static void forEach(Consumer<MaterialData> consumer) {
-        for (MaterialData material : VALUES) consumer.accept(material);
     }
 
     public int getSize() {

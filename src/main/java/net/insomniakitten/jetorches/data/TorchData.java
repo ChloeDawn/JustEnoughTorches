@@ -10,7 +10,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Locale;
-import java.util.function.Consumer;
 
 public enum TorchData implements IStringSerializable, IOreDict, IColored {
 
@@ -48,10 +47,6 @@ public enum TorchData implements IStringSerializable, IOreDict, IColored {
 
     TorchData(String ore, int light, int color, SoundType sound, EnumParticleTypes particle) {
         this(ore, light, color, sound, 0.0F, 0.0F, particle);
-    }
-
-    public static void forEach(Consumer<TorchData> consumer) {
-        for (TorchData torch : VALUES) consumer.accept(torch);
     }
 
     public float getLight() {

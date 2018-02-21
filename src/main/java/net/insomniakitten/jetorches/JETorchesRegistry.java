@@ -39,33 +39,43 @@ public final class JETorchesRegistry {
     protected static void onBlockRegistry(RegistryEvent.Register<Block> event) {
         GameRegistry.registerTileEntity(ColoredLight.class, ColoredLight.ID);
         RegistryHolder<Block>.Registry torches = TORCHES.begin(event);
-        TorchData.forEach(t -> torches.register(new BlockTorch(t)));
+        for (TorchData torch : TorchData.VALUES) {
+            torches.register(new BlockTorch(torch));
+        }
         RegistryHolder<Block>.Registry lamps = LAMPS.begin(event);
-        LampData.forEach(l -> lamps.register(new BlockLamp(l)));
+        for (LampData lamp : LampData.VALUES) {
+            lamps.register(new BlockLamp(lamp));
+        }
     }
 
     @SubscribeEvent
     protected static void onItemRegistry(RegistryEvent.Register<Item> event) {
         RegistryHolder<Item>.Registry items = ITEMS.begin(event);
-        MaterialData.forEach(m -> items.register(new ItemMaterial(m)));
-        TORCHES.entries().forEach(t -> items.register(new ItemTorch((BlockTorch) t)));
-        LAMPS.entries().forEach(l -> items.register(new ItemLamp((BlockLamp) l)));
-        ITEMS.entries().forEach(i -> {
-            if (i instanceof IOreDict) {
-                OreDictionary.registerOre(((IOreDict) i).getOreName(), i);
+        for (MaterialData material : MaterialData.VALUES) {
+            items.register(new ItemMaterial(material));
+        }
+        for (Block block : TORCHES.entries()) {
+            items.register(new ItemTorch((BlockTorch) block));
+        }
+        for (Block block : LAMPS.entries()) {
+            items.register(new ItemLamp((BlockLamp) block));
+        }
+        for (Item item : ITEMS.entries()) {
+            if (item instanceof IOreDict) {
+                OreDictionary.registerOre(((IOreDict) item).getOreName(), item);
             }
-        });
+        }
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     protected static void onModelRegistry(ModelRegistryEvent event) {
-        ITEMS.entries().forEach(i -> {
-            if (i instanceof IModelled) {
-                ModelResourceLocation mrl = ((IModelled) i).getModelResourceLocation();
-                ModelLoader.setCustomModelResourceLocation(i, 0, mrl);
+        for (Item item : ITEMS.entries()) {
+            if (item instanceof IModelled) {
+                ModelResourceLocation mrl = ((IModelled) item).getModelResourceLocation();
+                ModelLoader.setCustomModelResourceLocation(item, 0, mrl);
             }
-        });
+        }
     }
 
 }

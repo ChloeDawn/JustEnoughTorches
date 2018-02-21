@@ -5,7 +5,6 @@ import net.insomniakitten.jetorches.util.IOreDict;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Locale;
-import java.util.function.Consumer;
 
 public enum LampData implements IStringSerializable, IOreDict, IColored {
 
@@ -25,10 +24,6 @@ public enum LampData implements IStringSerializable, IOreDict, IColored {
         this.color = color;
         this.hardness = hardness;
         this.resistance = resistance;
-    }
-
-    public static void forEach(Consumer<LampData> consumer) {
-        for (LampData lamp : VALUES) consumer.accept(lamp);
     }
 
     public float getHardness() {
