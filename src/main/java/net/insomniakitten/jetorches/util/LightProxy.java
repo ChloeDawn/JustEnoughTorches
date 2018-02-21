@@ -5,7 +5,7 @@ import net.insomniakitten.jetorches.JETorchesConfig;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.SidedProxy;
 
-import java.util.Optional;
+import java.util.OptionalInt;
 
 public abstract class LightProxy {
 
@@ -18,29 +18,30 @@ public abstract class LightProxy {
         return instance;
     }
 
-    public abstract Optional<Integer> getActualLightValue();
+    public abstract OptionalInt getActualLightValue();
 
     public static final class ClientProxy extends LightProxy {
+
         private Boolean mirageLoaded = null;
 
         @Override
-        public Optional<Integer> getActualLightValue() {
+        public OptionalInt getActualLightValue() {
             if (JETorchesConfig.coloredLighting) {
                 if (mirageLoaded == null) {
                     mirageLoaded = Loader.isModLoaded("mirage");
                 }
                 if (mirageLoaded) {
-                    return Optional.of(0);
+                    return OptionalInt.of(0);
                 }
             }
-            return Optional.empty();
+            return OptionalInt.empty();
         }
     }
 
     public static final class ServerProxy extends LightProxy {
         @Override
-        public Optional<Integer> getActualLightValue() {
-            return Optional.empty();
+        public OptionalInt getActualLightValue() {
+            return OptionalInt.empty();
         }
     }
 
