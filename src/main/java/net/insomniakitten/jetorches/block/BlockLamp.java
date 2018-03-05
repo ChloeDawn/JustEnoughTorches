@@ -22,6 +22,8 @@ public final class BlockLamp extends Block {
 
     private static final PropertyBool POWERED = PropertyBool.create("powered");
 
+    private final boolean colored = JETorchesConfig.coloredLighting;
+
     private final LampVariants lamp;
 
     public BlockLamp(LampVariants lamp) {
@@ -74,7 +76,7 @@ public final class BlockLamp extends Block {
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
-        return JETorchesConfig.coloredLighting && state.getValue(POWERED);
+        return colored && state.getValue(POWERED);
     }
 
     @Override

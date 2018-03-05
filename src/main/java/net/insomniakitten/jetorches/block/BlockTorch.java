@@ -49,6 +49,8 @@ public final class BlockTorch extends Block {
             EnumFacing.EAST, new AxisAlignedBB(0.00D, 0.20D, 0.35D, 0.30D, 0.80D, 0.65D)
     );
 
+    private final boolean colored = JETorchesConfig.coloredLighting;
+
     private final TorchVariants torch;
 
     public BlockTorch(TorchVariants torch) {
@@ -220,7 +222,7 @@ public final class BlockTorch extends Block {
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
-        return JETorchesConfig.coloredLighting;
+        return colored;
     }
 
     @Override

@@ -17,6 +17,7 @@ public final class JETorchesConfig {
 
     @Config.Name("colored_lighting")
     @Config.Comment("If true, torches will produce colored lighting when Mirage is present.")
+    @Config.RequiresMcRestart
     public static boolean coloredLighting = true;
 
     private JETorchesConfig() {}
