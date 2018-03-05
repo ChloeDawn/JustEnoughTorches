@@ -7,7 +7,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class RegistryHolder<V extends IForgeRegistryEntry<V>> {
+public final class RegistryCollection<V extends IForgeRegistryEntry<V>> {
 
     private final List<V> entries = new LinkedList<>();
 

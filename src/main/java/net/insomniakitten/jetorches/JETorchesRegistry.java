@@ -11,7 +11,7 @@ import net.insomniakitten.jetorches.item.ItemMaterial;
 import net.insomniakitten.jetorches.item.ItemTorch;
 import net.insomniakitten.jetorches.util.ModelSupplier;
 import net.insomniakitten.jetorches.util.OreNameSupplier;
-import net.insomniakitten.jetorches.util.RegistryHolder;
+import net.insomniakitten.jetorches.util.RegistryCollection;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -28,21 +28,21 @@ import net.minecraftforge.oredict.OreDictionary;
 @Mod.EventBusSubscriber(modid = JETorches.ID)
 public final class JETorchesRegistry {
 
-    private static final RegistryHolder<Block> TORCHES = new RegistryHolder<>();
-    private static final RegistryHolder<Block> LAMPS = new RegistryHolder<>();
+    private static final RegistryCollection<Block> TORCHES = new RegistryCollection<>();
+    private static final RegistryCollection<Block> LAMPS = new RegistryCollection<>();
 
-    private static final RegistryHolder<Item> ITEMS = new RegistryHolder<>();
+    private static final RegistryCollection<Item> ITEMS = new RegistryCollection<>();
 
     private JETorchesRegistry() {}
 
     @SubscribeEvent
     protected static void onBlockRegistry(RegistryEvent.Register<Block> event) {
         GameRegistry.registerTileEntity(ColoredLight.class, ColoredLight.ID);
-        RegistryHolder<Block>.Registry torches = TORCHES.begin(event);
+        RegistryCollection<Block>.Registry torches = TORCHES.begin(event);
         for (TorchData torch : TorchData.VALUES) {
             torches.register(new BlockTorch(torch));
         }
-        RegistryHolder<Block>.Registry lamps = LAMPS.begin(event);
+        RegistryCollection<Block>.Registry lamps = LAMPS.begin(event);
         for (LampData lamp : LampData.VALUES) {
             lamps.register(new BlockLamp(lamp));
         }
@@ -50,7 +50,7 @@ public final class JETorchesRegistry {
 
     @SubscribeEvent
     protected static void onItemRegistry(RegistryEvent.Register<Item> event) {
-        RegistryHolder<Item>.Registry items = ITEMS.begin(event);
+        RegistryCollection<Item>.Registry items = ITEMS.begin(event);
         for (MaterialData material : MaterialData.VALUES) {
             items.register(new ItemMaterial(material));
         }
