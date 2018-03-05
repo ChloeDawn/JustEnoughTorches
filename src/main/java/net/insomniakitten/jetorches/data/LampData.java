@@ -1,9 +1,11 @@
 package net.insomniakitten.jetorches.data;
 
+import com.google.common.collect.Lists;
 import net.insomniakitten.jetorches.color.ColorSupplier;
 import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.util.IStringSerializable;
 
+import java.util.List;
 import java.util.Locale;
 
 public enum LampData implements IStringSerializable, OreNameSupplier, ColorSupplier {
@@ -40,8 +42,8 @@ public enum LampData implements IStringSerializable, OreNameSupplier, ColorSuppl
     }
 
     @Override
-    public String getOreName() {
-        return ore;
+    public List<String> getOreNames() {
+        return Lists.newArrayList("blockLamp", ore);
     }
 
     @Override

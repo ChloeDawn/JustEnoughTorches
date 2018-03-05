@@ -6,6 +6,8 @@ import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemBlock;
 
+import java.util.List;
+
 public final class ItemTorch extends ItemBlock implements ModelSupplier, OreNameSupplier {
 
     public ItemTorch(BlockTorch block) {
@@ -15,8 +17,8 @@ public final class ItemTorch extends ItemBlock implements ModelSupplier, OreName
     }
 
     @Override
-    public String getOreName() {
-        return ((BlockTorch) block).getTorchData().getOreName();
+    public List<String> getOreNames() {
+        return ((BlockTorch) block).getTorchData().getOreNames();
     }
 
     @Override

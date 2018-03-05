@@ -1,8 +1,10 @@
 package net.insomniakitten.jetorches.data;
 
+import com.google.common.collect.Lists;
 import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.util.IStringSerializable;
 
+import java.util.List;
 import java.util.Locale;
 
 public enum MaterialData implements IStringSerializable, OreNameSupplier {
@@ -37,8 +39,8 @@ public enum MaterialData implements IStringSerializable, OreNameSupplier {
     }
 
     @Override
-    public String getOreName() {
-        return ore;
+    public List<String> getOreNames() {
+        return Lists.newArrayList(ore);
     }
 
 }

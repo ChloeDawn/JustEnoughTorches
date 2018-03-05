@@ -62,7 +62,9 @@ public final class JETorchesRegistry {
         }
         for (Item item : ITEMS.entries()) {
             if (item instanceof OreNameSupplier) {
-                OreDictionary.registerOre(((OreNameSupplier) item).getOreName(), item);
+                for (String name : ((OreNameSupplier) item).getOreNames()) {
+                    OreDictionary.registerOre(name, item);
+                }
             }
         }
     }

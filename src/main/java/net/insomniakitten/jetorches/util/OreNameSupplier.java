@@ -1,7 +1,9 @@
 package net.insomniakitten.jetorches.util;
 
+import java.util.List;
+
 public interface OreNameSupplier {
 
-    String getOreName();
+    List<String> getOreNames();
 
 }

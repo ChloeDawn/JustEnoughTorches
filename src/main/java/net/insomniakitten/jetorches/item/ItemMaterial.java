@@ -7,6 +7,8 @@ import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
+import java.util.List;
+
 public final class ItemMaterial extends Item implements ModelSupplier, OreNameSupplier {
 
     private final MaterialData data;
@@ -19,8 +21,8 @@ public final class ItemMaterial extends Item implements ModelSupplier, OreNameSu
     }
 
     @Override
-    public String getOreName() {
-        return data.getOreName();
+    public List<String> getOreNames() {
+        return data.getOreNames();
     }
 
     @Override
