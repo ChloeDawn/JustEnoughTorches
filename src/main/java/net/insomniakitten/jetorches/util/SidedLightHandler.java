@@ -1,4 +1,4 @@
-package net.insomniakitten.jetorches.color;
+package net.insomniakitten.jetorches.util;
 
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;

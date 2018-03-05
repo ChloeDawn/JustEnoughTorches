@@ -3,7 +3,7 @@ package net.insomniakitten.jetorches.block;
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.color.ColoredLight;
-import net.insomniakitten.jetorches.color.SidedLightHandler;
+import net.insomniakitten.jetorches.util.SidedLightHandler;
 import net.insomniakitten.jetorches.data.LampData;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
