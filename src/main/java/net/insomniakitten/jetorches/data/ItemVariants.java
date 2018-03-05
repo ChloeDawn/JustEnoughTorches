@@ -7,7 +7,7 @@ import net.minecraft.util.IStringSerializable;
 import java.util.List;
 import java.util.Locale;
 
-public enum MaterialData implements IStringSerializable, OreNameSupplier {
+public enum ItemVariants implements IStringSerializable, OreNameSupplier {
 
     STICK_STONE("stickStone"),
     STICK_NETHER("stickNetherrack"),
@@ -15,17 +15,17 @@ public enum MaterialData implements IStringSerializable, OreNameSupplier {
     STICK_OBSIDIAN("stickObsidian"),
     STICK_GOLDEN("stickGold");
 
-    public static final MaterialData[] VALUES = values();
+    public static final ItemVariants[] VALUES = values();
 
     private final String ore;
     private final int size;
 
-    MaterialData(String ore, int size) {
+    ItemVariants(String ore, int size) {
         this.size = size;
         this.ore = ore;
     }
 
-    MaterialData(String ore) {
+    ItemVariants(String ore) {
         this(ore, 64);
     }
 

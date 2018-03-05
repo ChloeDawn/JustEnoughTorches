@@ -3,9 +3,9 @@ package net.insomniakitten.jetorches;
 import net.insomniakitten.jetorches.block.BlockLamp;
 import net.insomniakitten.jetorches.block.BlockTorch;
 import net.insomniakitten.jetorches.color.ColoredLight;
-import net.insomniakitten.jetorches.data.LampData;
-import net.insomniakitten.jetorches.data.MaterialData;
-import net.insomniakitten.jetorches.data.TorchData;
+import net.insomniakitten.jetorches.data.LampVariants;
+import net.insomniakitten.jetorches.data.ItemVariants;
+import net.insomniakitten.jetorches.data.TorchVariants;
 import net.insomniakitten.jetorches.item.ItemLamp;
 import net.insomniakitten.jetorches.item.ItemMaterial;
 import net.insomniakitten.jetorches.item.ItemTorch;
@@ -39,11 +39,11 @@ public final class JETorchesRegistry {
     protected static void onBlockRegistry(RegistryEvent.Register<Block> event) {
         GameRegistry.registerTileEntity(ColoredLight.class, ColoredLight.ID);
         RegistryCollection<Block>.Registry torches = TORCHES.begin(event);
-        for (TorchData torch : TorchData.VALUES) {
+        for (TorchVariants torch : TorchVariants.VALUES) {
             torches.register(new BlockTorch(torch));
         }
         RegistryCollection<Block>.Registry lamps = LAMPS.begin(event);
-        for (LampData lamp : LampData.VALUES) {
+        for (LampVariants lamp : LampVariants.VALUES) {
             lamps.register(new BlockLamp(lamp));
         }
     }
@@ -51,7 +51,7 @@ public final class JETorchesRegistry {
     @SubscribeEvent
     protected static void onItemRegistry(RegistryEvent.Register<Item> event) {
         RegistryCollection<Item>.Registry items = ITEMS.begin(event);
-        for (MaterialData material : MaterialData.VALUES) {
+        for (ItemVariants material : ItemVariants.VALUES) {
             items.register(new ItemMaterial(material));
         }
         for (Block block : TORCHES.entries()) {

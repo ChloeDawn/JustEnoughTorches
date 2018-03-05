@@ -5,7 +5,7 @@ import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.color.ColoredLight;
 import net.insomniakitten.jetorches.util.SidedLightHandler;
-import net.insomniakitten.jetorches.data.TorchData;
+import net.insomniakitten.jetorches.data.TorchVariants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.EnumPushReaction;
@@ -49,9 +49,9 @@ public final class BlockTorch extends Block {
             EnumFacing.EAST, new AxisAlignedBB(0.00D, 0.20D, 0.35D, 0.30D, 0.80D, 0.65D)
     );
 
-    private final TorchData torch;
+    private final TorchVariants torch;
 
-    public BlockTorch(TorchData torch) {
+    public BlockTorch(TorchVariants torch) {
         super(torch.getMaterial());
         this.torch = torch;
         setRegistryName(JETorches.ID, "torch_" + torch.getName());
@@ -287,7 +287,7 @@ public final class BlockTorch extends Block {
         return canPlaceOn(world, posAt) && side != EnumFacing.DOWN && isSolid(world, posAt, side);
     }
 
-    public final TorchData getTorchData() {
+    public final TorchVariants getTorchData() {
         return torch;
     }
 
