@@ -1,4 +1,4 @@
-tab.jetorches.label=Just Enough Torches
+item_group.jetorches.label=Just Enough Torches
 
 tile.jetorches.torch_stone.name=Stone Torch
 tile.jetorches.torch_nether.name=Nether Torch

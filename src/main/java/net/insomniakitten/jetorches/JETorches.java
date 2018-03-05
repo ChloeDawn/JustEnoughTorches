@@ -21,7 +21,7 @@ public final class JETorches {
         @Override
         @SideOnly(Side.CLIENT)
         public String getTranslatedTabLabel() {
-            return "tab." + ID + ".label";
+            return "item_group." + ID + ".label";
         }
 
         @Override
