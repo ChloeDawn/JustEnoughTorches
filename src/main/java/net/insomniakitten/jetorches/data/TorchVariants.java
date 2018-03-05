@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.color.ColorSupplier;
 import net.insomniakitten.jetorches.util.OreNameSupplier;
-import net.insomniakitten.jetorches.util.MaterialTorch;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumParticleTypes;

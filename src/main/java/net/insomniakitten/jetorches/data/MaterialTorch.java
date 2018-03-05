@@ -1,4 +1,4 @@
-package net.insomniakitten.jetorches.util;
+package net.insomniakitten.jetorches.data;
 
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
