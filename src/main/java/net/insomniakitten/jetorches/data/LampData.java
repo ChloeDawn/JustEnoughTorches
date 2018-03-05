@@ -1,12 +1,12 @@
 package net.insomniakitten.jetorches.data;
 
-import net.insomniakitten.jetorches.color.IColored;
-import net.insomniakitten.jetorches.util.IOreDict;
+import net.insomniakitten.jetorches.color.ColorSupplier;
+import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Locale;
 
-public enum LampData implements IStringSerializable, IOreDict, IColored {
+public enum LampData implements IStringSerializable, OreNameSupplier, ColorSupplier {
 
     LAPIS("blockLampLapis", 0x003BC0, 0.3F, 1.5F),
     OBSIDIAN("blockLampObsidian", 0x6300C0, 2.0F, 3000.0F),

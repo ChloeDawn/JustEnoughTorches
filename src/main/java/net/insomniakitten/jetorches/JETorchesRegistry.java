@@ -9,8 +9,8 @@ import net.insomniakitten.jetorches.data.TorchData;
 import net.insomniakitten.jetorches.item.ItemLamp;
 import net.insomniakitten.jetorches.item.ItemMaterial;
 import net.insomniakitten.jetorches.item.ItemTorch;
-import net.insomniakitten.jetorches.util.IModelled;
-import net.insomniakitten.jetorches.util.IOreDict;
+import net.insomniakitten.jetorches.util.ModelSupplier;
+import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.insomniakitten.jetorches.util.RegistryHolder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -61,8 +61,8 @@ public final class JETorchesRegistry {
             items.register(new ItemLamp((BlockLamp) block));
         }
         for (Item item : ITEMS.entries()) {
-            if (item instanceof IOreDict) {
-                OreDictionary.registerOre(((IOreDict) item).getOreName(), item);
+            if (item instanceof OreNameSupplier) {
+                OreDictionary.registerOre(((OreNameSupplier) item).getOreName(), item);
             }
         }
     }
@@ -71,8 +71,8 @@ public final class JETorchesRegistry {
     @SideOnly(Side.CLIENT)
     protected static void onModelRegistry(ModelRegistryEvent event) {
         for (Item item : ITEMS.entries()) {
-            if (item instanceof IModelled) {
-                ModelResourceLocation mrl = ((IModelled) item).getModelResourceLocation();
+            if (item instanceof ModelSupplier) {
+                ModelResourceLocation mrl = ((ModelSupplier) item).getModelResourceLocation();
                 ModelLoader.setCustomModelResourceLocation(item, 0, mrl);
             }
         }

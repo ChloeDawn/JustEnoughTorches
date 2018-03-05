@@ -1,6 +1,6 @@
 package net.insomniakitten.jetorches.util;
 
-public interface IOreDict {
+public interface OreNameSupplier {
 
     String getOreName();
 

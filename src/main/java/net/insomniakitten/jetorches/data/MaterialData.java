@@ -1,11 +1,11 @@
 package net.insomniakitten.jetorches.data;
 
-import net.insomniakitten.jetorches.util.IOreDict;
+import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Locale;
 
-public enum MaterialData implements IStringSerializable, IOreDict {
+public enum MaterialData implements IStringSerializable, OreNameSupplier {
 
     STICK_STONE("stickStone"),
     STICK_NETHER("stickNetherrack"),

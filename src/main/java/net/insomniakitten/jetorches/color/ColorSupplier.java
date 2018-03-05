@@ -1,6 +1,6 @@
 package net.insomniakitten.jetorches.color;
 
-public interface IColored {
+public interface ColorSupplier {
 
     int getColor();
 

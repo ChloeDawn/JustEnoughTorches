@@ -2,12 +2,12 @@ package net.insomniakitten.jetorches.item;
 
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.data.MaterialData;
-import net.insomniakitten.jetorches.util.IModelled;
-import net.insomniakitten.jetorches.util.IOreDict;
+import net.insomniakitten.jetorches.util.ModelSupplier;
+import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
-public final class ItemMaterial extends Item implements IModelled, IOreDict {
+public final class ItemMaterial extends Item implements ModelSupplier, OreNameSupplier {
 
     private final MaterialData data;
 
