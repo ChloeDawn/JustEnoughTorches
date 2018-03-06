@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.color.ColoredLight;
-import net.insomniakitten.jetorches.data.TorchVariants;
+import net.insomniakitten.jetorches.data.TorchVariant;
 import net.insomniakitten.jetorches.util.SidedLightHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -49,9 +49,9 @@ public final class BlockTorch extends Block {
             EnumFacing.EAST, new AxisAlignedBB(0.00D, 0.20D, 0.35D, 0.30D, 0.80D, 0.65D)
     );
 
-    private final TorchVariants torch;
+    private final TorchVariant torch;
 
-    public BlockTorch(TorchVariants torch) {
+    public BlockTorch(TorchVariant torch) {
         super(torch.getMaterial());
         this.torch = torch;
         setRegistryName(JETorches.ID, "torch_" + torch.getName());
@@ -65,7 +65,7 @@ public final class BlockTorch extends Block {
 
     }
 
-    public final TorchVariants getVariant() {
+    public final TorchVariant getVariant() {
         return torch;
     }
 

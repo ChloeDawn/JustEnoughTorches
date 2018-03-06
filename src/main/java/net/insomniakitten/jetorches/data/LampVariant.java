@@ -8,20 +8,20 @@ import net.minecraft.util.IStringSerializable;
 import java.util.List;
 import java.util.Locale;
 
-public enum LampVariants implements IStringSerializable, OreNameSupplier, ColorSupplier {
+public enum LampVariant implements IStringSerializable, OreNameSupplier, ColorSupplier {
 
     LAPIS("blockLampLapis", 0x003BC0, 0.3F, 1.5F),
     OBSIDIAN("blockLampObsidian", 0x6300C0, 2.0F, 3000.0F),
     QUARTZ("blockLampQuartz", 0xFFFFFF, 0.5F, 3.0F);
 
-    public static final LampVariants[] VALUES = values();
+    public static final LampVariant[] VALUES = values();
 
     private final String ore;
     private final int color;
     private final float hardness;
     private final float resistance;
 
-    LampVariants(String ore, int color, float hardness, float resistance) {
+    LampVariant(String ore, int color, float hardness, float resistance) {
         this.ore = ore;
         this.color = color;
         this.hardness = hardness;

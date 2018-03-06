@@ -12,7 +12,7 @@ import net.minecraft.util.IStringSerializable;
 import java.util.List;
 import java.util.Locale;
 
-public enum TorchVariants implements IStringSerializable, OreNameSupplier, ColorSupplier {
+public enum TorchVariant implements IStringSerializable, OreNameSupplier, ColorSupplier {
 
     STONE("torchStone", 14, 0xFFDE6C, SoundType.STONE, EnumParticleTypes.FLAME),
     NETHER("torchNetherrack", 10, 0xFF7200, SoundType.STONE, EnumParticleTypes.SMOKE_NORMAL),
@@ -25,7 +25,7 @@ public enum TorchVariants implements IStringSerializable, OreNameSupplier, Color
     OBSIDIAN("torchObsidian", 13, 0x6300C0, SoundType.STONE, 0.2F, 3000.0F, EnumParticleTypes.FLAME),
     GOLDEN("torchGold", 14, 0xEBBC3C, SoundType.METAL, 0.0F, 30.0F, EnumParticleTypes.FLAME);
 
-    public static final TorchVariants[] VALUES = values();
+    public static final TorchVariant[] VALUES = values();
 
     private final String ore;
     private final int light;
@@ -36,7 +36,7 @@ public enum TorchVariants implements IStringSerializable, OreNameSupplier, Color
 
     private final EnumParticleTypes particle;
 
-    TorchVariants(String ore, int light, int color, SoundType sound, float hardness, float resistance, EnumParticleTypes particle) {
+    TorchVariant(String ore, int light, int color, SoundType sound, float hardness, float resistance, EnumParticleTypes particle) {
         this.ore = ore;
         this.light = light;
         this.color = color;
@@ -46,7 +46,7 @@ public enum TorchVariants implements IStringSerializable, OreNameSupplier, Color
         this.particle = particle;
     }
 
-    TorchVariants(String ore, int light, int color, SoundType sound, EnumParticleTypes particle) {
+    TorchVariant(String ore, int light, int color, SoundType sound, EnumParticleTypes particle) {
         this(ore, light, color, sound, 0.0F, 0.0F, particle);
     }
 

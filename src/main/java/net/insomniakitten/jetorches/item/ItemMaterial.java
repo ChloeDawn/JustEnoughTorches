@@ -1,7 +1,7 @@
 package net.insomniakitten.jetorches.item;
 
 import net.insomniakitten.jetorches.JETorches;
-import net.insomniakitten.jetorches.data.ItemVariants;
+import net.insomniakitten.jetorches.data.ItemVariant;
 import net.insomniakitten.jetorches.util.ModelSupplier;
 import net.insomniakitten.jetorches.util.OreNameSupplier;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -11,9 +11,9 @@ import java.util.List;
 
 public final class ItemMaterial extends Item implements ModelSupplier, OreNameSupplier {
 
-    private final ItemVariants data;
+    private final ItemVariant data;
 
-    public ItemMaterial(ItemVariants data) {
+    public ItemMaterial(ItemVariant data) {
         this.data = data;
         setRegistryName(JETorches.ID, data.getName());
         setUnlocalizedName(JETorches.ID + "." + data.getName());

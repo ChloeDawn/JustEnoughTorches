@@ -3,7 +3,7 @@ package net.insomniakitten.jetorches.block;
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.color.ColoredLight;
-import net.insomniakitten.jetorches.data.LampVariants;
+import net.insomniakitten.jetorches.data.LampVariant;
 import net.insomniakitten.jetorches.util.SidedLightHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -22,9 +22,9 @@ public final class BlockLamp extends Block {
 
     private static final PropertyBool POWERED = PropertyBool.create("powered");
 
-    private final LampVariants lamp;
+    private final LampVariant lamp;
 
-    public BlockLamp(LampVariants lamp) {
+    public BlockLamp(LampVariant lamp) {
         super(Material.GLASS);
         this.lamp = lamp;
         setRegistryName(JETorches.ID, "lamp_" + lamp.getName());
@@ -35,7 +35,7 @@ public final class BlockLamp extends Block {
         setCreativeTab(JETorches.TAB);
     }
 
-    public LampVariants getVariant() {
+    public LampVariant getVariant() {
         return lamp;
     }
 
