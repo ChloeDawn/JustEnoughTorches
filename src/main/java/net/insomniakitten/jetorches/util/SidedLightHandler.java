@@ -32,11 +32,10 @@ public final class SidedLightHandler {
     @SideOnly(Side.CLIENT)
     public static final class ClientProxy extends Impl {
         private final boolean isMirageLoaded = Loader.isModLoaded("mirage");
-        private final boolean hasColoredLighting = JETorchesConfig.coloredLighting;
 
         @Override
         public OptionalInt apply(IBlockState state, IBlockAccess world, BlockPos pos) {
-            if (isMirageLoaded && hasColoredLighting) {
+            if (isMirageLoaded && JETorchesConfig.coloredLighting) {
                 Minecraft mc = FMLClientHandler.instance().getClient();
                 if (mc.world != null && mc.world.isRemote) {
                     return OptionalInt.of(0);
