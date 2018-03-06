@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.color.ColoredLight;
-import net.insomniakitten.jetorches.util.SidedLightHandler;
 import net.insomniakitten.jetorches.data.TorchVariants;
+import net.insomniakitten.jetorches.util.SidedLightHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.EnumPushReaction;
@@ -49,8 +49,6 @@ public final class BlockTorch extends Block {
             EnumFacing.EAST, new AxisAlignedBB(0.00D, 0.20D, 0.35D, 0.30D, 0.80D, 0.65D)
     );
 
-    private final boolean colored = JETorchesConfig.coloredLighting;
-
     private final TorchVariants torch;
 
     public BlockTorch(TorchVariants torch) {
@@ -65,6 +63,10 @@ public final class BlockTorch extends Block {
         setCreativeTab(JETorches.TAB);
         setTickRandomly(true);
 
+    }
+
+    public final TorchVariants getVariant() {
+        return torch;
     }
 
     @Override
@@ -141,8 +143,8 @@ public final class BlockTorch extends Block {
             posZ += 0.27D * offset.getFrontOffsetZ();
         }
         if (world.isRemote) {
-            world.spawnParticle(getTorchData().getParticle(), posX, posY, posZ, 0.00D, 0.00D, 0.00D);
-            if (getTorchData().getParticle() == EnumParticleTypes.FLAME) {
+            world.spawnParticle(getVariant().getParticle(), posX, posY, posZ, 0.00D, 0.00D, 0.00D);
+            if (getVariant().getParticle() == EnumParticleTypes.FLAME) {
                 world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY, posZ, 0.00D, 0.00D, 0.00D);
             }
         }
@@ -222,20 +224,20 @@ public final class BlockTorch extends Block {
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
-        return colored;
+        return JETorchesConfig.coloredLighting;
     }
 
     @Override
     @Nullable
     public TileEntity createTileEntity(World world, IBlockState state) {
-        int color = getTorchData().getColor();
-        float radius = getTorchData().getRadius();
+        int color = getVariant().getColor();
+        float radius = getVariant().getRadius();
         return hasTileEntity(state) ? new ColoredLight(color, radius) : null;
     }
 
     @Override
     public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material, boolean checkHead) {
-        if (getTorchData().canWorkUnderwater() && Material.WATER.equals(world.getBlockState(pos.up()).getMaterial())) {
+        if (getVariant().canWorkUnderwater() && Material.WATER.equals(world.getBlockState(pos.up()).getMaterial())) {
             boolean adjacentWater = false;
             Vec3i offset = new Vec3i(1, 0, 1);
             BlockPos min = pos.subtract(offset);
@@ -253,7 +255,7 @@ public final class BlockTorch extends Block {
 
     @Override
     public Vec3d getFogColor(World world, BlockPos pos, IBlockState state, Entity entity, Vec3d lastColor, float partialTicks) {
-        if (getTorchData().canWorkUnderwater()) {
+        if (getVariant().canWorkUnderwater()) {
             pos = pos.up();
             state = world.getBlockState(pos);
             if (state.getMaterial().isLiquid()) {
@@ -287,10 +289,6 @@ public final class BlockTorch extends Block {
     protected boolean canPlaceAt(World world, BlockPos pos, EnumFacing side) {
         BlockPos posAt = pos.offset(side.getOpposite());
         return canPlaceOn(world, posAt) && side != EnumFacing.DOWN && isSolid(world, posAt, side);
-    }
-
-    public final TorchVariants getTorchData() {
-        return torch;
     }
 
 }

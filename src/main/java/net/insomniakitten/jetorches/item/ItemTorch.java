@@ -18,7 +18,7 @@ public final class ItemTorch extends ItemBlock implements ModelSupplier, OreName
 
     @Override
     public List<String> getOreNames() {
-        return ((BlockTorch) block).getTorchData().getOreNames();
+        return ((BlockTorch) block).getVariant().getOreNames();
     }
 
     @Override

@@ -18,7 +18,7 @@ public final class ItemLamp extends ItemBlock implements ModelSupplier, OreNameS
 
     @Override
     public List<String> getOreNames() {
-        return ((BlockLamp) block).getLampData().getOreNames();
+        return ((BlockLamp) block).getVariant().getOreNames();
     }
 
     @Override

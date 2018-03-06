@@ -3,8 +3,8 @@ package net.insomniakitten.jetorches.block;
 import net.insomniakitten.jetorches.JETorches;
 import net.insomniakitten.jetorches.JETorchesConfig;
 import net.insomniakitten.jetorches.color.ColoredLight;
-import net.insomniakitten.jetorches.util.SidedLightHandler;
 import net.insomniakitten.jetorches.data.LampVariants;
+import net.insomniakitten.jetorches.util.SidedLightHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -22,8 +22,6 @@ public final class BlockLamp extends Block {
 
     private static final PropertyBool POWERED = PropertyBool.create("powered");
 
-    private final boolean colored = JETorchesConfig.coloredLighting;
-
     private final LampVariants lamp;
 
     public BlockLamp(LampVariants lamp) {
@@ -37,7 +35,7 @@ public final class BlockLamp extends Block {
         setCreativeTab(JETorches.TAB);
     }
 
-    public LampVariants getLampData() {
+    public LampVariants getVariant() {
         return lamp;
     }
 
@@ -76,14 +74,14 @@ public final class BlockLamp extends Block {
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
-        return colored && state.getValue(POWERED);
+        return JETorchesConfig.coloredLighting && state.getValue(POWERED);
     }
 
     @Override
     @Nullable
     public TileEntity createTileEntity(World world, IBlockState state) {
-        int color = getLampData().getColor();
-        float radius = getLampData().getRadius();
+        int color = getVariant().getColor();
+        float radius = getVariant().getRadius();
         return hasTileEntity(state) ? new ColoredLight(color, radius) : null;
     }
 
