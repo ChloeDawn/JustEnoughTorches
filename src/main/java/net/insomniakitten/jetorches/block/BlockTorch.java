@@ -41,6 +41,8 @@ public final class BlockTorch extends Block {
     private static final PropertyDirection FACING = PropertyDirection
             .create("facing", facing -> facing != EnumFacing.DOWN);
 
+    private static final EnumFacing[] VALUES = FACING.getAllowedValues().toArray(new EnumFacing[0]);
+
     private static final ImmutableMap<EnumFacing, AxisAlignedBB> AABB_TORCH = ImmutableMap.of(
             EnumFacing.UP, new AxisAlignedBB(0.40D, 0.00D, 0.40D, 0.60D, 0.60D, 0.60D),
             EnumFacing.NORTH, new AxisAlignedBB(0.35D, 0.20D, 0.70D, 0.65D, 0.80D, 1.00D),
@@ -78,14 +80,12 @@ public final class BlockTorch extends Block {
     @Override
     @Deprecated
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing facing = EnumFacing.values()[meta & 7];
-        if (facing == EnumFacing.DOWN) facing = EnumFacing.UP;
-        return getDefaultState().withProperty(FACING, facing);
+        return getDefaultState().withProperty(FACING, VALUES[meta & 7]);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).ordinal();
+        return state.getValue(FACING).ordinal() - 1;
     }
 
     @Override
