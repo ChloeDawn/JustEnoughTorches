@@ -69,7 +69,7 @@ public final class BlockLamp extends Block {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return state.getValue(POWERED) ? SidedLightHandler.getLightValue(state, world, pos).orElse(15) : 0;
+        return state.getValue(POWERED) ? SidedLightHandler.getLightValue(state, world, pos, 15) : 0;
     }
 
     @Override

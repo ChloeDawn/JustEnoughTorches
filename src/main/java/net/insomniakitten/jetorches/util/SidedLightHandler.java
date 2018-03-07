@@ -12,8 +12,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.OptionalInt;
-
 public final class SidedLightHandler {
 
     @SidedProxy(modId = JETorches.ID)
@@ -21,12 +19,12 @@ public final class SidedLightHandler {
 
     private SidedLightHandler() {}
 
-    public static OptionalInt getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return instance.apply(state, world, pos);
+    public static int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos, int delegate) {
+        return instance.apply(state, world, pos, delegate);
     }
 
     private static abstract class Impl {
-        public abstract OptionalInt apply(IBlockState state, IBlockAccess world, BlockPos pos);
+        public abstract int apply(IBlockState state, IBlockAccess world, BlockPos pos, int delegate);
     }
 
     @SideOnly(Side.CLIENT)
@@ -34,22 +32,22 @@ public final class SidedLightHandler {
         private final boolean isMirageLoaded = Loader.isModLoaded("mirage");
 
         @Override
-        public OptionalInt apply(IBlockState state, IBlockAccess world, BlockPos pos) {
+        public int apply(IBlockState state, IBlockAccess world, BlockPos pos, int delegate) {
             if (isMirageLoaded && JETorchesConfig.coloredLighting) {
                 Minecraft mc = FMLClientHandler.instance().getClient();
                 if (mc.world != null && mc.world.isRemote) {
-                    return OptionalInt.of(0);
+                    return 0;
                 }
             }
-            return OptionalInt.empty();
+            return delegate;
         }
     }
 
     @SideOnly(Side.SERVER)
     public static final class ServerProxy extends Impl {
         @Override
-        public OptionalInt apply(IBlockState state, IBlockAccess world, BlockPos pos) {
-            return OptionalInt.empty();
+        public int apply(IBlockState state, IBlockAccess world, BlockPos pos, int delegate) {
+            return delegate;
         }
     }
 

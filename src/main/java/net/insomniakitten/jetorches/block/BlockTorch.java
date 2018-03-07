@@ -213,7 +213,7 @@ public final class BlockTorch extends Block {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return SidedLightHandler.getLightValue(state, world, pos).orElse(lightValue);
+        return SidedLightHandler.getLightValue(state, world, pos, lightValue);
     }
 
     @Override
