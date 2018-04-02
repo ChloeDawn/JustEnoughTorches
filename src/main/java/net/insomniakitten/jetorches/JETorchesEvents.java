@@ -1,6 +1,7 @@
 package net.insomniakitten.jetorches;
 
 import net.insomniakitten.jetorches.block.BlockTorch;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -17,12 +18,10 @@ public final class JETorchesEvents {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public static void onViewRenderFOVModifier(EntityViewRenderEvent.FOVModifier event) {
-        boolean inWater = event.getEntity().isInsideOfMaterial(Material.WATER);
-        if (event.getState().getBlock() instanceof BlockTorch && inWater) {
-            if (((BlockTorch) event.getState().getBlock()).getVariant().canWorkUnderwater()) {
-                if (event.getEntity().isInsideOfMaterial(Material.WATER)) {
-                    event.setFOV(event.getFOV() * 60.0F / 70.0F);
-                }
+        Block block = event.getState().getBlock();
+        if (block instanceof BlockTorch && ((BlockTorch) block).getVariant().canWorkUnderwater()) {
+            if (event.getEntity().isInsideOfMaterial(Material.WATER)) {
+                event.setFOV(event.getFOV() * 60.0F / 70.0F);
             }
         }
     }
@@ -30,9 +29,9 @@ public final class JETorchesEvents {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public static void onViewRenderFogDensity(EntityViewRenderEvent.FogDensity event) {
-        boolean inWater = event.getEntity().isInsideOfMaterial(Material.WATER);
-        if (event.getState().getBlock() instanceof BlockTorch && inWater) {
-            if (((BlockTorch) event.getState().getBlock()).getVariant().canWorkUnderwater()) {
+        Block block = event.getState().getBlock();
+        if (block instanceof BlockTorch && ((BlockTorch) block).getVariant().canWorkUnderwater()) {
+            if (event.getEntity().isInsideOfMaterial(Material.WATER)) {
                 event.setCanceled(true);
                 GlStateManager.setFog(GlStateManager.FogMode.EXP);
                 event.setDensity(0.115F);
