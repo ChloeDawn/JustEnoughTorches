@@ -1,0 +1,17 @@
+tab.jetorches.name=Jus Enuf Burny Stikz
+
+tile.jetorches.torch_stone.name=Stne Burny Stik
+tile.jetorches.torch_nether.name=Nether Burny Stik
+tile.jetorches.torch_prismarine.name=Prizmarine Burny Stik
+tile.jetorches.torch_obsidian.name=Vry Hrd Rok Burny Stik
+tile.jetorches.torch_golden.name=Goldan Burny Stik
+
+tile.jetorches.lamp_lapis.name=Blu Stuffz Lapm
+tile.jetorches.lamp_obsidian.name=Hard Roky Lapm
+tile.jetorches.lamp_quartz.name=Nether Cloudz Lapm
+
+item.jetorches.stick_stone.name=Stne Stik
+item.jetorches.stick_nether.name=Netherrack Stik
+item.jetorches.stick_prismarine.name=Prizmarine Stik
+item.jetorches.stick_obsidian.name=Vry Hrd Rok Stik
+item.jetorches.stick_golden.name=Goldan Stik
