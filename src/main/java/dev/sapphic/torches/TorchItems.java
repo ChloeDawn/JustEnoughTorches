@@ -70,7 +70,7 @@ public final class TorchItems {
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Item> event) {
     for (final RegistryEvent.MissingMappings.Mapping<Item> mapping : event.getAllMappings()) {
-      if ("jetorches".equals(mapping.key.getNamespace())) {
+      if (Torches.OLD_NAMESPACE.equals(mapping.key.getNamespace())) {
         final ResourceLocation key = new ResourceLocation(Torches.NAMESPACE, mapping.key.getPath());
         mapping.remap(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(key)));
       }
@@ -95,11 +95,9 @@ public final class TorchItems {
       @Override
       public NBTTagCompound fixTagCompound(final NBTTagCompound tag) {
         switch (tag.getString("id")) {
-          case "jetorches:torch":
-          case "justenoughtorches:torch":
+          case Torches.NAMESPACE + ":torch":
             return this.flatten(tag, this.torches);
-          case "jetorches:material":
-          case "justenoughtorches:material":
+          case Torches.NAMESPACE + ":material":
             return this.flatten(tag, this.materials);
         }
         return tag;

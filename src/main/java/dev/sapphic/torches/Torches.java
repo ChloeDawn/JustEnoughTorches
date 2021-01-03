@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
   acceptedMinecraftVersions = "[1.12,1.13)")
 public final class Torches {
   public static final String NAMESPACE = "justenoughtorches";
+  public static final String OLD_NAMESPACE = "jetorches";
 
   public static final CreativeTabs CREATIVE_TAB = new CreativeTabs(NAMESPACE) {
     @Override

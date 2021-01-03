@@ -41,7 +41,7 @@ public final class TorchBlocks {
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Block> event) {
     for (final RegistryEvent.MissingMappings.Mapping<Block> mapping : event.getAllMappings()) {
-      if ("jetorches".equals(mapping.key.getNamespace())) {
+      if (Torches.OLD_NAMESPACE.equals(mapping.key.getNamespace())) {
         final ResourceLocation key = new ResourceLocation(Torches.NAMESPACE, mapping.key.getPath());
         mapping.remap(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(key)));
       }
