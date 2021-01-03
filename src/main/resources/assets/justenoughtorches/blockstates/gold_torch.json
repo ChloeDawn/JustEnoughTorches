@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "justenoughtorches:gold_torch"
+    },
+    "facing=east": {
+      "model": "justenoughtorches:gold_wall_torch",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "justenoughtorches:gold_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "justenoughtorches:gold_wall_torch",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "justenoughtorches:gold_wall_torch",
+      "y": 270
+    }
+  }
+}

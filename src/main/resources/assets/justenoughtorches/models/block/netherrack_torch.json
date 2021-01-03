@@ -1,0 +1,6 @@
+{
+  "parent": "justenoughtorches:block/torch",
+  "textures":{
+    "all": "justenoughtorches:blocks/netherrack_torch"
+  }
+}

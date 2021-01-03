@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "S"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:blaze_powder"
+    },
+    "S": {
+      "ore": "stickNetherrack",
+      "type": "forge:ore_dict"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:netherrack_torch",
+    "count": 4
+  }
+}

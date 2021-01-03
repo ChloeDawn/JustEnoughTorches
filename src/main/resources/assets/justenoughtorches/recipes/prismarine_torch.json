@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "S"
+  ],
+  "key": {
+    "O": {
+      "ore": "dustPrismarine",
+      "type": "forge:ore_dict"
+    },
+    "S": {
+      "ore": "stickPrismarine",
+      "type": "forge:ore_dict"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:prismarine_torch",
+    "count": 4
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "justenoughtorches:quartz_lamp"
+    },
+    "powered=true": {
+      "model": "justenoughtorches:quartz_lamp_on"
+    }
+  }
+}

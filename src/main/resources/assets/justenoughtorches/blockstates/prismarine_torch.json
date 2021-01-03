@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "justenoughtorches:prismarine_torch"
+    },
+    "facing=east": {
+      "model": "justenoughtorches:prismarine_wall_torch",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "justenoughtorches:prismarine_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "justenoughtorches:prismarine_wall_torch",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "justenoughtorches:prismarine_wall_torch",
+      "y": 270
+    }
+  }
+}

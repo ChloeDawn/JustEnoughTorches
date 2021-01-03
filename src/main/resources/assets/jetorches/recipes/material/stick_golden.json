@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:crafting_shaped",
-    "group": "jetorches:material",
-    "pattern": [ "O", "O" ],
-    "key": {
-        "O": { "ore": "nuggetGold", "type": "forge:ore_dict" }
-    },
-    "result": { "item": "jetorches:stick_golden", "count": 4 }
-}

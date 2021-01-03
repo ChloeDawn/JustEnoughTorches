@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "S"
+  ],
+  "key": {
+    "O": [
+      {
+        "item": "minecraft:coal",
+        "data": 0
+      },
+      {
+        "item": "minecraft:coal",
+        "data": 1
+      }
+    ],
+    "S": {
+      "ore": "stickGold",
+      "type": "forge:ore_dict"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:gold_torch",
+    "count": 4
+  }
+}

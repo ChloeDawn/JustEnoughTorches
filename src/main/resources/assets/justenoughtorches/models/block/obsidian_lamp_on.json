@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "justenoughtorches:blocks/obsidian_lamp_on"
+  }
+}

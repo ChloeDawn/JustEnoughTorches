@@ -18,7 +18,3 @@ out/
 .gradle/
 build/
 run/
-
-# other
-psd/
-releases/

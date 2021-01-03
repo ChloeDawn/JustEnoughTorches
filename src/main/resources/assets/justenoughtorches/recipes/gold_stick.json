@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "O"
+  ],
+  "key": {
+    "O": {
+      "ore": "nuggetGold",
+      "type": "forge:ore_dict"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:gold_stick",
+    "count": 4
+  }
+}

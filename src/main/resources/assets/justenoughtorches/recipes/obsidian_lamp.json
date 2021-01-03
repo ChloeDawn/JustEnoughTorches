@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " O ",
+    "ORO",
+    " O "
+  ],
+  "key": {
+    "O": {
+      "ore": "stickObsidian",
+      "type": "forge:ore_dict"
+    },
+    "R": {
+      "item": "minecraft:redstone_lamp"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:lamp",
+    "data": 1
+  }
+}

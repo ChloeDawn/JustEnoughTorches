@@ -1,0 +1,17 @@
+item_group.justenoughtorches.label=Just Enough Torches
+
+tile.justenoughtorches.stone_torch.name=Stone Torch
+tile.justenoughtorches.netherrack_torch.name=Netherrack Torch
+tile.justenoughtorches.prismarine_torch.name=Prismarine Torch
+tile.justenoughtorches.obsidian_torch.name=Obsidian Torch
+tile.justenoughtorches.gold_torch.name=Gold Torch
+
+tile.justenoughtorches.lamp.lapis.name=Lapis Lazuli Lamp
+tile.justenoughtorches.lamp.obsidian.name=Obsidian Lamp
+tile.justenoughtorches.lamp.quartz.name=Quartz Lamp
+
+item.justenoughtorches.stone_stick.name=Stone Stick
+item.justenoughtorches.netherrack_stick.name=Netherrack Stick
+item.justenoughtorches.prismarine_stick.name=Prismarine Stick
+item.justenoughtorches.obsidian_stick.name=Obsidian Stick
+item.justenoughtorches.gold_stick.name=Gold Stick

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "O"
+  ],
+  "key": {
+    "O": {
+      "ore": "cobblestone",
+      "type": "forge:ore_dict"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:stone_stick",
+    "count": 4
+  }
+}

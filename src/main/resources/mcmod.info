@@ -1,10 +1,19 @@
 [
-    {
-        "modid": "jetorches",
-        "name": "Just Enough Torches",
-        "description": "Adds various torches for various materials.",
-        "version": "${version}",
-        "mcversion": "[1.12,1.13)",
-        "authorList": [ "InsomniaKitten" ]
-    }
+  {
+    "modid": "justenoughtorches",
+    "name": "Just Enough Torches",
+    "description": "Adds various torches of various materials",
+    "url": "https://git.io/JLdjc",
+    "version": "$version",
+    "authorList": [
+      "Chloe Dawn"
+    ],
+    "useDependencyInformation": true,
+    "requiredMods": [
+      "forge@[14.23.5.2847,)"
+    ],
+    "dependencies": [
+      "forge@[14.23.5.2847,)"
+    ]
+  }
 ]

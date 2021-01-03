@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "justenoughtorches:obsidian_torch"
+    },
+    "facing=east": {
+      "model": "justenoughtorches:obsidian_wall_torch",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "justenoughtorches:obsidian_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "justenoughtorches:obsidian_wall_torch",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "justenoughtorches:obsidian_wall_torch",
+      "y": 270
+    }
+  }
+}

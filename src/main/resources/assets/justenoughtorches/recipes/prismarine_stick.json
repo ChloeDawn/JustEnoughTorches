@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "O"
+  ],
+  "key": {
+    "O": {
+      "ore": "gemPrismarine",
+      "type": "forge:ore_dict"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:prismarine_stick",
+    "count": 4
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "justenoughtorches:block/wall_torch",
+  "textures":{
+    "all": "justenoughtorches:blocks/obsidian_torch"
+  }
+}

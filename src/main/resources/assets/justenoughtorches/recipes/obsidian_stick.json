@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "O"
+  ],
+  "key": {
+    "O": {
+      "ore": "obsidian",
+      "type": "forge:ore_dict"
+    }
+  },
+  "result": {
+    "item": "justenoughtorches:obsidian_stick",
+    "count": 4
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "justenoughtorches:netherrack_torch"
+    },
+    "facing=east": {
+      "model": "justenoughtorches:netherrack_wall_torch",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "justenoughtorches:netherrack_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "justenoughtorches:netherrack_wall_torch",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "justenoughtorches:netherrack_wall_torch",
+      "y": 270
+    }
+  }
+}
