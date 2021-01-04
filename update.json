@@ -1,0 +1,17 @@
+{
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/just-enough-torches",
+  "promos": {
+    "1.12.2-latest": "2.2.0",
+    "1.12.2-recommended": "2.2.0"
+  },
+  "1.12": {
+    "1.0.0": "Initial release\nAdded stone, nether, prismarine, and obsidian torches",
+    "1.0.1": "Improved adjacent fluid check logic for the Prismarine torch underwater feature",
+    "1.1.0": "Added golden torches"
+  },
+  "1.12.2": {
+    "2.0.0": "Fixed crash when placing torches on underside of blocks\nRemoved vanilla torch light configuration\nAdded lapis, obsidian, and quartz lamps",
+    "2.1.0": "Various fixes",
+    "2.2.0": "Entire mod rewritten, improving performance and fixing bugs"
+  }
+}
