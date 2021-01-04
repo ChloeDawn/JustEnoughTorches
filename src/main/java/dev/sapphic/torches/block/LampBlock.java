@@ -109,15 +109,17 @@ public final class LampBlock extends Block {
 
     private final float hardness;
     private final float resistance;
+    private final String name;
 
     Type(final float hardness, final float resistance) {
       this.hardness = hardness;
       this.resistance = (resistance * 3.0F) / 15.0F;
+      this.name = this.name().toLowerCase(Locale.ROOT);
     }
 
     @Override
     public String getName() {
-      return this.name().toLowerCase(Locale.ROOT);
+      return this.name;
     }
   }
 }
