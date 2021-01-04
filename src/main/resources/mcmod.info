@@ -5,6 +5,7 @@
     "description": "Adds various torches of various materials",
     "url": "https://git.io/JLdjc",
     "updateJSON": "https://git.io/JLFOa",
+    "logoFile": "logo.png",
     "version": "$version",
     "authorList": [
       "Chloe Dawn"
