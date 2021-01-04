@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -36,9 +37,7 @@ public final class TorchClient {
     putModel(TorchItems.PRISMARINE_TORCH);
     putModel(TorchItems.OBSIDIAN_TORCH);
     putModel(TorchItems.GOLD_TORCH);
-    putModel(TorchItems.LAMP, 0, "lapis");
-    putModel(TorchItems.LAMP, 1, "obsidian");
-    putModel(TorchItems.LAMP, 2, "quartz");
+    putModels(TorchItems.LAMP, LampBlock.Type.values());
     putModel(TorchItems.STONE_STICK);
     putModel(TorchItems.NETHERRACK_STICK);
     putModel(TorchItems.PRISMARINE_STICK);
@@ -75,9 +74,14 @@ public final class TorchClient {
     ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(id, "inventory"));
   }
 
-  private static void putModel(final Item item, final int metadata, final String variant) {
+  private static void putModels(final Item item, final IStringSerializable[] variants) {
     final ResourceLocation id = Objects.requireNonNull(item.getRegistryName());
-    ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(
-      new ResourceLocation(id.getNamespace(), variant + '_' + id.getPath()), "inventory"));
+    for (int metadata = 0; metadata < variants.length; metadata++) {
+      ModelLoader.setCustomModelResourceLocation(item, metadata,
+        new ModelResourceLocation(new ResourceLocation(
+          id.getNamespace(), variants[metadata].getName() + '_' + id.getPath()
+        ), "inventory")
+      );
+    }
   }
 }

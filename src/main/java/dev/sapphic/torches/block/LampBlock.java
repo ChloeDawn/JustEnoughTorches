@@ -70,8 +70,8 @@ public final class LampBlock extends Block {
 
   @Override
   public void getSubBlocks(final CreativeTabs tab, final NonNullList<ItemStack> stacks) {
-    for (final Type type : TYPES) {
-      stacks.add(new ItemStack(this, 1, type.ordinal()));
+    for (int metadata = 0; metadata < TYPES.length; metadata++) {
+      stacks.add(new ItemStack(this, 1, metadata));
     }
   }
 
