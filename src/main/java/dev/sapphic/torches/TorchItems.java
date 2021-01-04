@@ -9,9 +9,11 @@ import net.minecraft.util.datafix.IFixableData;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
+@ObjectHolder(Torches.NAMESPACE)
 public final class TorchItems {
   public static final Item STONE_TORCH = new ItemBlock(TorchBlocks.STONE_TORCH);
   public static final Item NETHERRACK_TORCH = new ItemBlock(TorchBlocks.NETHERRACK_TORCH);

@@ -10,8 +10,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 
+@ObjectHolder(Torches.NAMESPACE)
 public final class TorchBlocks {
   public static final Block STONE_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
     .setSoundType(SoundType.STONE).setLightLevel(14 / 15.0F);
