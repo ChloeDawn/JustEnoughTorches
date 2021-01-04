@@ -25,9 +25,9 @@ public final class TorchClient {
       @Override
       protected ModelResourceLocation getModelResourceLocation(final IBlockState state) {
         final ResourceLocation id = Objects.requireNonNull(state.getBlock().getRegistryName());
-        final String name = state.getValue(LampBlock.TYPE).getName() + '_' + id.getPath();
-        final ResourceLocation path = new ResourceLocation(id.getNamespace(), name);
-        return new ModelResourceLocation(path, "powered=" + state.getValue(LampBlock.POWERED));
+        return new ModelResourceLocation(new ResourceLocation(id.getNamespace(),
+          state.getValue(LampBlock.TYPE).getName() + '_' + id.getPath()
+        ), "powered=" + state.getValue(LampBlock.POWERED));
       }
     });
 
@@ -77,7 +77,7 @@ public final class TorchClient {
 
   private static void putModel(final Item item, final int metadata, final String variant) {
     final ResourceLocation id = Objects.requireNonNull(item.getRegistryName());
-    final ResourceLocation path = new ResourceLocation(id.getNamespace(), variant + '_' + id.getPath());
-    ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(path, "inventory"));
+    ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(
+      new ResourceLocation(id.getNamespace(), variant + '_' + id.getPath()), "inventory"));
   }
 }

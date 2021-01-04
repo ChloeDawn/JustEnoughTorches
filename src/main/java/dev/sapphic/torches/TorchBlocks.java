@@ -8,18 +8,25 @@ import net.minecraft.block.SoundType;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.Objects;
-
 public final class TorchBlocks {
-  public static final Block STONE_TORCH = new TorchBlock(EnumParticleTypes.FLAME).setSoundType(SoundType.STONE).setLightLevel(14 / 15.0F);
-  public static final Block NETHERRACK_TORCH = new TorchBlock(EnumParticleTypes.SMOKE_NORMAL).setSoundType(SoundType.STONE).setLightLevel(10 / 15.0F);
-  public static final Block PRISMARINE_TORCH = new PrismarineTorchBlock(EnumParticleTypes.WATER_DROP).setSoundType(SoundType.GLASS).setLightLevel(15 / 15.0F);
-  public static final Block OBSIDIAN_TORCH = new TorchBlock(EnumParticleTypes.FLAME).setSoundType(SoundType.STONE).setHardness(0.2F).setResistance(3000.0F).setLightLevel(13 / 15.0F);
-  public static final Block GOLD_TORCH = new TorchBlock(EnumParticleTypes.FLAME).setSoundType(SoundType.METAL).setResistance(30.0F).setLightLevel(14 / 15.0F);
+  public static final Block STONE_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
+    .setSoundType(SoundType.STONE).setLightLevel(14 / 15.0F);
+
+  public static final Block NETHERRACK_TORCH = new TorchBlock(EnumParticleTypes.SMOKE_NORMAL)
+    .setSoundType(SoundType.STONE).setLightLevel(10 / 15.0F);
+
+  public static final Block PRISMARINE_TORCH = new PrismarineTorchBlock(EnumParticleTypes.WATER_DROP)
+    .setSoundType(SoundType.GLASS).setLightLevel(15 / 15.0F);
+
+  public static final Block OBSIDIAN_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
+    .setSoundType(SoundType.STONE).setHardness(0.2F).setResistance(3000.0F).setLightLevel(13 / 15.0F);
+
+  public static final Block GOLD_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
+    .setSoundType(SoundType.METAL).setResistance(30.0F).setLightLevel(14 / 15.0F);
 
   public static final Block LAMP = new LampBlock(); // LAPIS, OBSIDIAN, QUARTZ
 
@@ -40,11 +47,8 @@ public final class TorchBlocks {
 
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Block> event) {
-    for (final RegistryEvent.MissingMappings.Mapping<Block> mapping : event.getAllMappings()) {
-      if (Torches.OLD_NAMESPACE.equals(mapping.key.getNamespace())) {
-        final ResourceLocation key = new ResourceLocation(Torches.NAMESPACE, mapping.key.getPath());
-        mapping.remap(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(key)));
-      }
+    for (final Mapping<Block> mapping : event.getAllMappings()) {
+      Torches.remap(mapping, event.getRegistry());
     }
   }
 

@@ -7,12 +7,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.IFixableData;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import java.util.Objects;
 
 public final class TorchItems {
   public static final Item STONE_TORCH = new ItemBlock(TorchBlocks.STONE_TORCH);
@@ -69,11 +67,8 @@ public final class TorchItems {
 
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Item> event) {
-    for (final RegistryEvent.MissingMappings.Mapping<Item> mapping : event.getAllMappings()) {
-      if (Torches.OLD_NAMESPACE.equals(mapping.key.getNamespace())) {
-        final ResourceLocation key = new ResourceLocation(Torches.NAMESPACE, mapping.key.getPath());
-        mapping.remap(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(key)));
-      }
+    for (final Mapping<Item> mapping : event.getAllMappings()) {
+      Torches.remap(mapping, event.getRegistry());
     }
   }
 
@@ -94,11 +89,12 @@ public final class TorchItems {
 
       @Override
       public NBTTagCompound fixTagCompound(final NBTTagCompound tag) {
-        switch (tag.getString("id")) {
-          case Torches.NAMESPACE + ":torch":
-            return this.flatten(tag, this.torches);
-          case Torches.NAMESPACE + ":material":
-            return this.flatten(tag, this.materials);
+        final String id = tag.getString("id");
+        if ((Torches.NAMESPACE + ":torch").equals(id)) {
+          return this.flatten(tag, this.torches);
+        }
+        if ((Torches.NAMESPACE + ":material").equals(id)) {
+          return this.flatten(tag, this.materials);
         }
         return tag;
       }
