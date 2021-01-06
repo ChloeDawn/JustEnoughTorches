@@ -2,6 +2,7 @@ package dev.sapphic.torches;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -26,6 +27,24 @@ public final class Torches {
     @SideOnly(Side.CLIENT)
     public ItemStack createIcon() {
       return new ItemStack(TorchItems.STONE_TORCH);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void displayAllRelevantItems(final NonNullList<ItemStack> stacks) {
+      stacks.add(new ItemStack(TorchItems.STONE_TORCH));
+      stacks.add(new ItemStack(TorchItems.NETHERRACK_TORCH));
+      stacks.add(new ItemStack(TorchItems.PRISMARINE_TORCH));
+      stacks.add(new ItemStack(TorchItems.OBSIDIAN_TORCH));
+      stacks.add(new ItemStack(TorchItems.GOLD_TORCH));
+      stacks.add(new ItemStack(TorchItems.LAMP, 1, 0));
+      stacks.add(new ItemStack(TorchItems.LAMP, 1, 1));
+      stacks.add(new ItemStack(TorchItems.LAMP, 1, 2));
+      stacks.add(new ItemStack(TorchItems.STONE_STICK));
+      stacks.add(new ItemStack(TorchItems.NETHERRACK_STICK));
+      stacks.add(new ItemStack(TorchItems.PRISMARINE_STICK));
+      stacks.add(new ItemStack(TorchItems.OBSIDIAN_STICK));
+      stacks.add(new ItemStack(TorchItems.GOLD_STICK));
     }
   };
 
