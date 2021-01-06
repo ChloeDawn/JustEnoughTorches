@@ -1,6 +1,7 @@
 package dev.sapphic.torches;
 
 import dev.sapphic.torches.item.LampItem;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,11 +26,11 @@ public final class TorchItems {
 
   public static final Item LAMP = new LampItem(TorchBlocks.LAMP); // LAPIS, OBSIDIAN, QUARTZ
 
-  public static final Item STONE_STICK = new Item();
-  public static final Item NETHERRACK_STICK = new Item();
-  public static final Item PRISMARINE_STICK = new Item();
-  public static final Item OBSIDIAN_STICK = new Item();
-  public static final Item GOLD_STICK = new Item();
+  public static final Item STONE_STICK = new Item().setCreativeTab(CreativeTabs.MATERIALS);
+  public static final Item NETHERRACK_STICK = new Item().setCreativeTab(CreativeTabs.MATERIALS);
+  public static final Item PRISMARINE_STICK = new Item().setCreativeTab(CreativeTabs.MATERIALS);
+  public static final Item OBSIDIAN_STICK = new Item().setCreativeTab(CreativeTabs.MATERIALS);
+  public static final Item GOLD_STICK = new Item().setCreativeTab(CreativeTabs.MATERIALS);
 
   private TorchItems() {
   }
@@ -72,7 +73,7 @@ public final class TorchItems {
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Item> event) {
     for (final Mapping<Item> mapping : event.getAllMappings()) {
-      if ("jetorches".equals(mapping.key.getNamespace())) {
+      if (Torches.OLD_NAMESPACE.equals(mapping.key.getNamespace())) {
         if ("lamp".equals(mapping.key.getPath())) {
           mapping.remap(LAMP);
         } else {
@@ -100,19 +101,14 @@ public final class TorchItems {
       @Override
       public NBTTagCompound fixTagCompound(final NBTTagCompound tag) {
         final String id = tag.getString("id");
-        if ("jetorches:torch".equals(id)) {
-          return this.flatten(tag, this.torches);
+        final boolean isTorch = (Torches.OLD_NAMESPACE + ":torch").equals(id);
+        if (isTorch || (Torches.OLD_NAMESPACE + ":material").equals(id)) {
+          final String[] names = isTorch ? this.torches : this.materials;
+          final int index = Math.min(tag.getShort("Damage"), names.length);
+          tag.setString("id", Torches.NAMESPACE + ':' + names[index]);
+          tag.setShort("Damage", (short) 0);
+          return tag;
         }
-        if ("jetorches:material".equals(id)) {
-          return this.flatten(tag, this.materials);
-        }
-        return tag;
-      }
-
-      private NBTTagCompound flatten(final NBTTagCompound tag, final String[] names) {
-        final int index = Math.min(tag.getShort("Damage"), names.length);
-        tag.setString("id", Torches.NAMESPACE + ':' + names[index]);
-        tag.setShort("Damage", (short) 0);
         return tag;
       }
     };
@@ -121,7 +117,6 @@ public final class TorchItems {
   private static void register(final IForgeRegistry<Item> registry, final String name, final Item item) {
     item.setRegistryName(new ResourceLocation(Torches.NAMESPACE, name));
     item.setTranslationKey(Torches.NAMESPACE + '.' + name);
-    item.setCreativeTab(Torches.CREATIVE_TAB);
     registry.register(item);
   }
 }

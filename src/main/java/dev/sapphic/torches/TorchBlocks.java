@@ -6,6 +6,7 @@ import dev.sapphic.torches.block.SubmersibleTorchBlock;
 import dev.sapphic.torches.block.TorchBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -19,21 +20,23 @@ import net.minecraftforge.registries.IForgeRegistry;
 @EventBusSubscriber(modid = Torches.NAMESPACE)
 public final class TorchBlocks {
   public static final Block STONE_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
-    .setSoundType(SoundType.STONE).setLightLevel(14 / 15.0F);
+    .setSoundType(SoundType.STONE).setLightLevel(14 / 15.0F).setCreativeTab(CreativeTabs.DECORATIONS);
 
   public static final Block NETHERRACK_TORCH = new TorchBlock(EnumParticleTypes.SMOKE_NORMAL)
-    .setSoundType(SoundType.STONE).setLightLevel(10 / 15.0F);
+    .setSoundType(SoundType.STONE).setLightLevel(10 / 15.0F).setCreativeTab(CreativeTabs.DECORATIONS);
 
   public static final Block PRISMARINE_TORCH = new SubmersibleTorchBlock(EnumParticleTypes.WATER_DROP)
-    .setSoundType(SoundType.GLASS).setLightLevel(15 / 15.0F);
+    .setSoundType(SoundType.GLASS).setLightLevel(15 / 15.0F).setCreativeTab(CreativeTabs.DECORATIONS);
 
   public static final Block OBSIDIAN_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
-    .setSoundType(SoundType.STONE).setHardness(0.2F).setResistance(3000.0F).setLightLevel(13 / 15.0F);
+    .setSoundType(SoundType.STONE).setLightLevel(13 / 15.0F).setCreativeTab(CreativeTabs.DECORATIONS)
+    .setHardness(0.2F).setResistance(3000.0F);
 
   public static final Block GOLD_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
-    .setSoundType(SoundType.METAL).setResistance(30.0F).setLightLevel(14 / 15.0F);
+    .setSoundType(SoundType.METAL).setLightLevel(14 / 15.0F).setCreativeTab(CreativeTabs.DECORATIONS)
+    .setResistance(30.0F);
 
-  public static final Block LAMP = new LampBlock(); // LAPIS, OBSIDIAN, QUARTZ
+  public static final Block LAMP = new LampBlock().setCreativeTab(CreativeTabs.REDSTONE); // LAPIS, OBSIDIAN, QUARTZ
 
   private TorchBlocks() {
   }
@@ -61,7 +64,7 @@ public final class TorchBlocks {
       .put("lamp", LAMP)
       .build();
     for (final Mapping<Block> mapping : event.getAllMappings()) {
-      if ("jetorches".equals(mapping.key.getNamespace())) {
+      if (Torches.OLD_NAMESPACE.equals(mapping.key.getNamespace())) {
         mapping.remap(blocks.get(mapping.key.getPath()));
       }
     }
@@ -70,7 +73,6 @@ public final class TorchBlocks {
   private static void register(final IForgeRegistry<Block> registry, final String name, final Block block) {
     block.setRegistryName(new ResourceLocation(Torches.NAMESPACE, name));
     block.setTranslationKey(Torches.NAMESPACE + '.' + name);
-    block.setCreativeTab(Torches.CREATIVE_TAB);
     registry.register(block);
   }
 }
