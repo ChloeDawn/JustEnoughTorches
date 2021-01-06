@@ -2,7 +2,7 @@ package dev.sapphic.torches;
 
 import com.google.common.collect.ImmutableMap;
 import dev.sapphic.torches.block.LampBlock;
-import dev.sapphic.torches.block.PrismarineTorchBlock;
+import dev.sapphic.torches.block.SubmersibleTorchBlock;
 import dev.sapphic.torches.block.TorchBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -22,7 +22,7 @@ public final class TorchBlocks {
   public static final Block NETHERRACK_TORCH = new TorchBlock(EnumParticleTypes.SMOKE_NORMAL)
     .setSoundType(SoundType.STONE).setLightLevel(10 / 15.0F);
 
-  public static final Block PRISMARINE_TORCH = new PrismarineTorchBlock(EnumParticleTypes.WATER_DROP)
+  public static final Block PRISMARINE_TORCH = new SubmersibleTorchBlock(EnumParticleTypes.WATER_DROP)
     .setSoundType(SoundType.GLASS).setLightLevel(15 / 15.0F);
 
   public static final Block OBSIDIAN_TORCH = new TorchBlock(EnumParticleTypes.FLAME)

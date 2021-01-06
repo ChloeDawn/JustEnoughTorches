@@ -1,6 +1,7 @@
 package dev.sapphic.torches;
 
 import dev.sapphic.torches.block.LampBlock;
+import dev.sapphic.torches.block.SubmersibleTorchBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
@@ -47,24 +48,20 @@ public final class TorchClient {
 
   @SubscribeEvent
   public static void modifyFov(final EntityViewRenderEvent.FOVModifier event) {
-    if (TorchConfig.prismarineUnderwater) {
-      if (event.getState().getBlock() == TorchBlocks.PRISMARINE_TORCH) {
-        if (event.getEntity().isInsideOfMaterial(Material.WATER)) {
-          event.setFOV((event.getFOV() * 60.0F) / 70.0F);
-        }
+    if (event.getState().getBlock() instanceof SubmersibleTorchBlock) {
+      if (event.getEntity().isInsideOfMaterial(Material.WATER)) {
+        event.setFOV((event.getFOV() * 60.0F) / 70.0F);
       }
     }
   }
 
   @SubscribeEvent
   public static void setupFog(final EntityViewRenderEvent.FogDensity event) {
-    if (TorchConfig.prismarineUnderwater) {
-      if (event.getState().getBlock() == TorchBlocks.PRISMARINE_TORCH) {
-        if (event.getEntity().isInsideOfMaterial(Material.WATER)) {
-          GlStateManager.setFog(GlStateManager.FogMode.EXP);
-          event.setDensity(0.115F);
-          event.setCanceled(true);
-        }
+    if (event.getState().getBlock() instanceof SubmersibleTorchBlock) {
+      if (event.getEntity().isInsideOfMaterial(Material.WATER)) {
+        GlStateManager.setFog(GlStateManager.FogMode.EXP);
+        event.setDensity(0.115F);
+        event.setCanceled(true);
       }
     }
   }

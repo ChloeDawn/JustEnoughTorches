@@ -52,7 +52,6 @@ public final class Torches {
   public Torches() {
     MinecraftForge.EVENT_BUS.register(TorchBlocks.class);
     MinecraftForge.EVENT_BUS.register(TorchItems.class);
-    MinecraftForge.EVENT_BUS.register(TorchConfig.class);
     if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
       MinecraftForge.EVENT_BUS.register(TorchClient.class);
     }
