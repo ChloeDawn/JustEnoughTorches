@@ -13,10 +13,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Objects;
 
+@EventBusSubscriber(value = Side.CLIENT, modid = Torches.NAMESPACE)
 public final class TorchClient {
   private TorchClient() {
   }

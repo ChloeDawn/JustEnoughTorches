@@ -5,7 +5,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.FixTypes;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
@@ -50,11 +49,6 @@ public final class Torches {
   };
 
   public Torches() {
-    MinecraftForge.EVENT_BUS.register(TorchBlocks.class);
-    MinecraftForge.EVENT_BUS.register(TorchItems.class);
-    if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-      MinecraftForge.EVENT_BUS.register(TorchClient.class);
-    }
     FMLCommonHandler.instance().getDataFixer().init(NAMESPACE, 0)
       .registerFix(FixTypes.ITEM_INSTANCE, TorchItems.dataFixer());
   }
