@@ -76,7 +76,6 @@ public final class TorchItems {
         if ("lamp".equals(mapping.key.getPath())) {
           mapping.remap(LAMP);
         } else {
-          // Delegate to data fixer
           mapping.ignore();
         }
       }

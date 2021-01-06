@@ -14,8 +14,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.Objects;
-
 @ObjectHolder(Torches.NAMESPACE)
 public final class TorchBlocks {
   public static final Block STONE_TORCH = new TorchBlock(EnumParticleTypes.FLAME)
@@ -52,20 +50,17 @@ public final class TorchBlocks {
 
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Block> event) {
-    final ImmutableMap<String, String> names = ImmutableMap.<String, String>builder()
-      .put("torch_stone", "stone_torch")
-      .put("torch_nether", "netherrack_torch")
-      .put("torch_prismarine", "prismarine_torch")
-      .put("torch_obsidian", "obsidian_torch")
-      .put("torch_golden", "gold_torch")
-      .put("lamp", "lamp")
+    final ImmutableMap<String, Block> blocks = ImmutableMap.<String, Block>builder()
+      .put("torch_stone", STONE_TORCH)
+      .put("torch_nether", NETHERRACK_TORCH)
+      .put("torch_prismarine", PRISMARINE_TORCH)
+      .put("torch_obsidian", OBSIDIAN_TORCH)
+      .put("torch_golden", GOLD_TORCH)
+      .put("lamp", LAMP)
       .build();
     for (final Mapping<Block> mapping : event.getAllMappings()) {
       if ("jetorches".equals(mapping.key.getNamespace())) {
-        final String oldName = mapping.key.getPath();
-        final String newName = Objects.requireNonNull(names.get(oldName), oldName);
-        final ResourceLocation id = new ResourceLocation(Torches.NAMESPACE, newName);
-        mapping.remap(Objects.requireNonNull(event.getRegistry().getValue(id), id::toString));
+        mapping.remap(blocks.get(mapping.key.getPath()));
       }
     }
   }
