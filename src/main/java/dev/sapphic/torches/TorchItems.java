@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import java.util.Objects;
+
 @ObjectHolder(Torches.NAMESPACE)
 public final class TorchItems {
   public static final Item STONE_TORCH = new ItemBlock(TorchBlocks.STONE_TORCH);
@@ -70,7 +72,14 @@ public final class TorchItems {
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Item> event) {
     for (final Mapping<Item> mapping : event.getAllMappings()) {
-      Torches.remap(mapping, event.getRegistry());
+      if ("jetorches".equals(mapping.key.getNamespace())) {
+        if ("lamp".equals(mapping.key.getPath())) {
+          mapping.remap(LAMP);
+        } else {
+          // Delegate to data fixer
+          mapping.ignore();
+        }
+      }
     }
   }
 
@@ -92,10 +101,10 @@ public final class TorchItems {
       @Override
       public NBTTagCompound fixTagCompound(final NBTTagCompound tag) {
         final String id = tag.getString("id");
-        if ((Torches.NAMESPACE + ":torch").equals(id)) {
+        if ("jetorches:torch".equals(id)) {
           return this.flatten(tag, this.torches);
         }
-        if ((Torches.NAMESPACE + ":material").equals(id)) {
+        if ("jetorches:material".equals(id)) {
           return this.flatten(tag, this.materials);
         }
         return tag;

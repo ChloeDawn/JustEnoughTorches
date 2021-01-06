@@ -1,5 +1,6 @@
 package dev.sapphic.torches;
 
+import com.google.common.collect.ImmutableMap;
 import dev.sapphic.torches.block.LampBlock;
 import dev.sapphic.torches.block.PrismarineTorchBlock;
 import dev.sapphic.torches.block.TorchBlock;
@@ -12,6 +13,8 @@ import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.Objects;
 
 @ObjectHolder(Torches.NAMESPACE)
 public final class TorchBlocks {
@@ -49,8 +52,21 @@ public final class TorchBlocks {
 
   @SubscribeEvent
   public static void remapAll(final RegistryEvent.MissingMappings<Block> event) {
+    final ImmutableMap<String, String> names = ImmutableMap.<String, String>builder()
+      .put("torch_stone", "stone_torch")
+      .put("torch_nether", "netherrack_torch")
+      .put("torch_prismarine", "prismarine_torch")
+      .put("torch_obsidian", "obsidian_torch")
+      .put("torch_golden", "gold_torch")
+      .put("lamp", "lamp")
+      .build();
     for (final Mapping<Block> mapping : event.getAllMappings()) {
-      Torches.remap(mapping, event.getRegistry());
+      if ("jetorches".equals(mapping.key.getNamespace())) {
+        final String oldName = mapping.key.getPath();
+        final String newName = Objects.requireNonNull(names.get(oldName), oldName);
+        final ResourceLocation id = new ResourceLocation(Torches.NAMESPACE, newName);
+        mapping.remap(Objects.requireNonNull(event.getRegistry().getValue(id), id::toString));
+      }
     }
   }
 

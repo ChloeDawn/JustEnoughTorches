@@ -26,8 +26,7 @@ import java.util.Random;
 
 public class TorchBlock extends Block {
   private static final PropertyDirection FACING = PropertyDirection.create("facing", dir -> dir != EnumFacing.DOWN);
-
-  private static final EnumFacing[] VALUES = FACING.getAllowedValues().toArray(new EnumFacing[0]);
+  private static final EnumFacing[] FACINGS = EnumFacing.values();
 
   private static final ImmutableMap<EnumFacing, AxisAlignedBB> AABBS = Maps.immutableEnumMap(ImmutableMap.of(
     EnumFacing.UP, new AxisAlignedBB(0.4, 0.0, 0.4, 0.6, 0.6, 0.6),
@@ -39,24 +38,27 @@ public class TorchBlock extends Block {
 
   private final EnumParticleTypes particle;
 
+  public TorchBlock(final EnumParticleTypes particle) {
+    this(Material.CIRCUITS, particle);
+  }
+
   protected TorchBlock(final Material material, final EnumParticleTypes particle) {
     super(material);
     this.particle = particle;
   }
 
-  public TorchBlock(final EnumParticleTypes particle) {
-    this(Material.CIRCUITS, particle);
-  }
-
   @Override
   @Deprecated
   public IBlockState getStateFromMeta(final int meta) {
-    return this.getDefaultState().withProperty(FACING, VALUES[meta & 7]);
+    final EnumFacing facing = FACINGS[meta & 0b111];
+    return this.getDefaultState().withProperty(FACING,
+      (facing == EnumFacing.DOWN) ? EnumFacing.UP : facing
+    );
   }
 
   @Override
   public int getMetaFromState(final IBlockState state) {
-    return state.getValue(FACING).ordinal() - 1;
+    return state.getValue(FACING).ordinal();
   }
 
   @Override
