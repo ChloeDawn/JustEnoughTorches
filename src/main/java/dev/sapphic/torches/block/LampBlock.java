@@ -117,6 +117,10 @@ public final class LampBlock extends Block {
       this.name = this.name().toLowerCase(Locale.ROOT);
     }
 
+    public static String getName(final ItemStack stack) {
+      return TYPES[stack.getMetadata() % TYPES.length].name;
+    }
+
     @Override
     public String getName() {
       return this.name;

@@ -36,7 +36,7 @@ public final class TorchBlocks {
     .setSoundType(SoundType.METAL).setLightLevel(14 / 15.0F).setCreativeTab(CreativeTabs.DECORATIONS)
     .setResistance(30.0F);
 
-  public static final Block LAMP = new LampBlock().setCreativeTab(CreativeTabs.REDSTONE); // LAPIS, OBSIDIAN, QUARTZ
+  public static final Block LAMP = new LampBlock().setCreativeTab(CreativeTabs.REDSTONE);
 
   private TorchBlocks() {
   }

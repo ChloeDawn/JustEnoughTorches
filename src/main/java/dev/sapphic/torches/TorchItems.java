@@ -1,9 +1,11 @@
 package dev.sapphic.torches;
 
-import dev.sapphic.torches.item.LampItem;
+import dev.sapphic.torches.block.LampBlock;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.IFixableData;
@@ -24,7 +26,7 @@ public final class TorchItems {
   public static final Item OBSIDIAN_TORCH = new ItemBlock(TorchBlocks.OBSIDIAN_TORCH);
   public static final Item GOLD_TORCH = new ItemBlock(TorchBlocks.GOLD_TORCH);
 
-  public static final Item LAMP = new LampItem(TorchBlocks.LAMP); // LAPIS, OBSIDIAN, QUARTZ
+  public static final Item LAMP = new ItemMultiTexture(TorchBlocks.LAMP, Blocks.AIR, LampBlock.Type::getName);
 
   public static final Item STONE_STICK = new Item().setCreativeTab(CreativeTabs.MATERIALS);
   public static final Item NETHERRACK_STICK = new Item().setCreativeTab(CreativeTabs.MATERIALS);
