@@ -1,5 +1,6 @@
 package dev.sapphic.torches;
 
+import dev.sapphic.torches.block.LampBlock;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -37,9 +38,9 @@ public final class Torches {
       stacks.add(new ItemStack(TorchItems.PRISMARINE_TORCH));
       stacks.add(new ItemStack(TorchItems.OBSIDIAN_TORCH));
       stacks.add(new ItemStack(TorchItems.GOLD_TORCH));
-      stacks.add(new ItemStack(TorchItems.LAMP, 1, 0));
-      stacks.add(new ItemStack(TorchItems.LAMP, 1, 1));
-      stacks.add(new ItemStack(TorchItems.LAMP, 1, 2));
+      for (final LampBlock.Type type : LampBlock.Type.values()) {
+        stacks.add(new ItemStack(TorchItems.LAMP, 1, type.ordinal()));
+      }
       stacks.add(new ItemStack(TorchItems.STONE_STICK));
       stacks.add(new ItemStack(TorchItems.NETHERRACK_STICK));
       stacks.add(new ItemStack(TorchItems.PRISMARINE_STICK));
